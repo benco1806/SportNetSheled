@@ -1,0 +1,127 @@
+{
+  "project_info": {
+    "project_number": "501140690094",
+    "firebase_url": "https://todolistbenfirebase-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "todolistbenfirebase",
+    "storage_bucket": "todolistbenfirebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501140690094:android:03bf5c9486ab09f21b093f",
+        "android_client_info": {
+          "package_name": "com.example.datastracruretest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJgRcEOtEKL_cNYgK1u_zmjPX1K4cdIxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501140690094:android:fcdbcdf125e2673c1b093f",
+        "android_client_info": {
+          "package_name": "com.example.firefoxtest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJgRcEOtEKL_cNYgK1u_zmjPX1K4cdIxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501140690094:android:159cafa754c9d6311b093f",
+        "android_client_info": {
+          "package_name": "com.example.sportnetsheled"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJgRcEOtEKL_cNYgK1u_zmjPX1K4cdIxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501140690094:android:b545a5730cc219fc1b093f",
+        "android_client_info": {
+          "package_name": "com.example.todolistfinalben"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJgRcEOtEKL_cNYgK1u_zmjPX1K4cdIxg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
