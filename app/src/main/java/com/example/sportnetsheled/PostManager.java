@@ -40,7 +40,7 @@ public class PostManager {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                Log.d("TaskDownLoad", "we did it!:: " + localFile.getPath());
+                Log.d("TaskDownLoad", "blyat:: " + localFile.getPath());
             }
         });
 
