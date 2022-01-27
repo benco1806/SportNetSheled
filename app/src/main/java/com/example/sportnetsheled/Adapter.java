@@ -1,4 +1,4 @@
-package com.example.sportnetsheled.ui.home;
+package com.example.sportnetsheled;
 
 import android.content.Context;
 import android.media.MediaPlayer;
@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.VideoView;
-
-import com.example.sportnetsheled.Post;
-import com.example.sportnetsheled.PostManager;
-import com.example.sportnetsheled.R;
 
 import java.io.IOException;
 import java.util.List;
@@ -71,6 +67,7 @@ public class Adapter extends BaseAdapter {
         final Post post = posts.get(i);
 
         viewHolder.tvPost.setText(post.getTextApp());
+
 
         if (post.getUri() == null) {
             try {

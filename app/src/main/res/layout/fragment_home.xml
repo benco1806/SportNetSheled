@@ -4,13 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
+    android:background="@android:color/holo_red_dark">
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lv"
-        android:divider="@null"
-        android:dividerHeight="30dp"
-        />
+        android:id="@+id/list"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

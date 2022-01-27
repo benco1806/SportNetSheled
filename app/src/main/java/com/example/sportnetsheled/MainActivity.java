@@ -2,9 +2,13 @@ package com.example.sportnetsheled;
 
 import android.os.Bundle;
 
+import com.example.sportnetsheled.ui.ExploreFragment;
+import com.example.sportnetsheled.ui.HomeFragment;
+import com.example.sportnetsheled.ui.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -14,24 +18,61 @@ import com.example.sportnetsheled.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
+
+    private Fragment homeFragment = null, exploreFragment = null, profileFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+
+
+        //I added this if statement to keep the selected fragment when rotating the device
+        if (savedInstanceState == null) {
+            homeFragment = new HomeFragment(R.layout.fragment_home, this);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
+            bottomNav.setSelectedItemId(R.id.nav_home);
+        }
+
+//            View home = findViewById(R.id.nav_home);
+//            home.performClick();
+
+
+
     }
+
+
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener =
+            item -> {
+                Fragment selectedFragment = null;
+
+                switch (item.getItemId()) {
+                    case R.id.nav_home:
+                        if(homeFragment == null)
+                            homeFragment = new HomeFragment(R.layout.fragment_home, this);
+                        selectedFragment = homeFragment;
+                        break;
+                    case R.id.nav_explore:
+                        if(exploreFragment == null)
+                            exploreFragment = new ExploreFragment(R.layout.fragment_explore, this);
+                        selectedFragment = exploreFragment;
+                        break;
+                    case R.id.nav_profile:
+                        if(profileFragment == null)
+                            profileFragment = new ProfileFragment(R.layout.fragment_profile, this);
+                        selectedFragment = profileFragment;
+                        break;
+                }
+
+                getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).replace(R.id.fragment_container,
+                        selectedFragment).commit();
+
+                return true;
+            };
 
 }
