@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-public class Adapter extends BaseAdapter {
+public class HomeListViewAdapter extends BaseAdapter {
 
 
     private Context context;
@@ -23,7 +23,7 @@ public class Adapter extends BaseAdapter {
     Set<View> viewSet;
     PostManager pm;
 
-    public Adapter(Context context, List<Post> p) {
+    public HomeListViewAdapter(Context context, List<Post> p) {
         this.viewSet = new ArraySet<View>();
         this.context = context;
         this.posts = p;

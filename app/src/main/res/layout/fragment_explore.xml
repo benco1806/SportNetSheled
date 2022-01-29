@@ -27,6 +27,6 @@
         app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toEndOf="@+id/textView99"
         app:layout_constraintTop_toTopOf="@+id/textView99"
-        app:srcCompat="@drawable/outline_travel_explore_20"
+        app:srcCompat="@drawable/explore_logo"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

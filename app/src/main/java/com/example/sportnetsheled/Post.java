@@ -13,6 +13,9 @@ public class Post {
         this.path = path;
     }
 
+    public Post() {
+    }
+
     public Uri getUri() {
         return uri;
     }

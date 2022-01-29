@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.ListView;
 
 
-import com.example.sportnetsheled.Adapter;
+import com.example.sportnetsheled.HomeListViewAdapter;
 import com.example.sportnetsheled.Post;
 import com.example.sportnetsheled.R;
 
@@ -29,7 +29,7 @@ public class HomeFragment extends CustomFragment {
         posts.add(p1);
 
 
-        Adapter adapter = new Adapter(getContext(), posts);
+        HomeListViewAdapter adapter = new HomeListViewAdapter(getContext(), posts);
 
         ListView lv = (ListView) thisView.findViewById(R.id.list);
 

@@ -1,11 +1,64 @@
 package com.example.sportnetsheled.ui;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.view.View;
+import android.widget.GridView;
+import android.widget.TextView;
 
-public class ProfileFragment extends CustomFragment {
+import com.example.sportnetsheled.Post;
+import com.example.sportnetsheled.ProfileGridAdapter;
+import com.example.sportnetsheled.R;
 
+import java.util.ArrayList;
+
+public class ProfileFragment extends CustomFragment implements View.OnClickListener {
+
+    private int greyColor = Color.rgb(195, 198, 201), nonColor = 0x00000000;
+    private TextView tvmyfav, tvmywork;
+    private boolean isMyfavSetted;
+    private GridView gridView;
+    private ProfileGridAdapter adapter;
+    private ArrayList<Post> posts;
 
     public ProfileFragment(int layout, Context context) {
         super(layout, context);
+    }
+
+    @Override
+    protected void intilaize() {
+        tvmyfav = thisView.findViewById(R.id.tvmyfav);
+        tvmywork = thisView.findViewById(R.id.tvmywork);
+
+        tvmyfav.setBackgroundColor(greyColor);
+        isMyfavSetted = true;
+
+        tvmyfav.setOnClickListener(this);
+        tvmywork.setOnClickListener(this);
+
+        posts = new ArrayList<>();
+
+        for(int i = 0; i < 12; i++)
+            posts.add(new Post());
+
+        adapter = new ProfileGridAdapter(context, posts);
+        gridView = (GridView) thisView.findViewById(R.id.profileGrid);
+
+        gridView.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        if((!isMyfavSetted) && view == tvmyfav){
+            tvmywork.setBackgroundColor(nonColor);
+            tvmyfav.setBackgroundColor(greyColor);
+            isMyfavSetted = true;
+        }else
+            if(isMyfavSetted && view == tvmywork){
+                tvmywork.setBackgroundColor(greyColor);
+                tvmyfav.setBackgroundColor(nonColor);
+                isMyfavSetted = false;
+        }
     }
 }
