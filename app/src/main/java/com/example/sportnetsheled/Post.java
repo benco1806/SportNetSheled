@@ -6,7 +6,7 @@ import android.net.Uri;
 public class Post {
     private String path;
     private String textApp;
-    private Uri uri;
+    private Uri uri; // ##we must finding a solution - saving it in firebase
 
     public Post(String textApp, String path) {
         this.textApp = textApp;
