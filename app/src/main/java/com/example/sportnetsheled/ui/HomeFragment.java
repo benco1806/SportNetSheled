@@ -22,8 +22,8 @@ public class HomeFragment extends CustomFragment {
     @Override
     protected void intilaize() {
         ArrayList<Post> posts = new ArrayList<Post>();
-        Post p = new Post("1111", "gs://todolistbenfirebase.appspot.com/20211229_094441.mp4");
-        Post p1 = new Post("kfv;~~dl", "gs://todolistbenfirebase.appspot.com/20211229_094450.mp4");
+        Post p = new Post("1111", "gs://firestoretest-74f9f.appspot.com/20211229_094450.mp4");
+        Post p1 = new Post("kfv;~~dl", "gs://firestoretest-74f9f.appspot.com/20211229_094450.mp4");
 
         posts.add(p);
         posts.add(p1);

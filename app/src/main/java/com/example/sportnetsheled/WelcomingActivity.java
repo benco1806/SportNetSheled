@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.service.autofill.OnClickAction;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -53,11 +51,12 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.googlesigminbtn:
                 //google sign in action
+                googleSignIn();
                 break;
         }
     }
 
-    private void signIn() {
+    private void googleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 0);
     }
@@ -67,7 +66,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == 0) {
-            // The Task returned from this call is always completed, no need to attach
+            // The Task returned from this call is always completed, no need to attasssch
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
@@ -77,7 +76,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
+            Toast.makeText(getApplicationContext(), "welcome", Toast.LENGTH_SHORT).show();
             // Signed in successfully, show authenticated UI.
             //updateUI(account);
         } catch (ApiException e) {

@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         if(user == null)
         {
@@ -36,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(new Intent(this, WelcomingActivity.class), UserClass.REQUEST_CODE);
             }
         }
+
+        setContentView(R.layout.activity_main);
+
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);

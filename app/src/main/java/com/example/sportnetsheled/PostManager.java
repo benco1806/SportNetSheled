@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class PostManager {
     // Create a Cloud Storage reference from the app
-    FirebaseStorage storage = FirebaseStorage.getInstance("gs://todolistbenfirebase.appspot.com");
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
     public void getUri(Post p, VideoView vv) throws IOException {
         StorageReference reference = storage.getReferenceFromUrl(p.getPath());
