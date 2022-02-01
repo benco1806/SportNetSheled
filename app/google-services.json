@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "501140690094",
-    "firebase_url": "https://todolistbenfirebase-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "todolistbenfirebase",
-    "storage_bucket": "todolistbenfirebase.appspot.com"
+    "project_number": "263103432308",
+    "firebase_url": "https://firestoretest-74f9f-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "firestoretest-74f9f",
+    "storage_bucket": "firestoretest-74f9f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:501140690094:android:03bf5c9486ab09f21b093f",
+        "mobilesdk_app_id": "1:263103432308:android:409c71e821a63d09d2f321",
         "android_client_info": {
-          "package_name": "com.example.datastracruretest"
+          "package_name": "com.example.firestoretest"
         }
       },
       "oauth_client": [
         {
-          "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+          "client_id": "263103432308-7nhk0r2rqp3lh64efg3ll13bn0sivvc8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBJgRcEOtEKL_cNYgK1u_zmjPX1K4cdIxg"
+          "current_key": "AIzaSyD1s1hGDavNrV5r8ph9-bzUbj2y7xDchtQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+              "client_id": "263103432308-7nhk0r2rqp3lh64efg3ll13bn0sivvc8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -37,85 +37,27 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:501140690094:android:fcdbcdf125e2673c1b093f",
-        "android_client_info": {
-          "package_name": "com.example.firefoxtest"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBJgRcEOtEKL_cNYgK1u_zmjPX1K4cdIxg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:501140690094:android:159cafa754c9d6311b093f",
+        "mobilesdk_app_id": "1:263103432308:android:60a2c47a8a4cedefd2f321",
         "android_client_info": {
           "package_name": "com.example.sportnetsheled"
         }
       },
       "oauth_client": [
         {
-          "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+          "client_id": "263103432308-7nhk0r2rqp3lh64efg3ll13bn0sivvc8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBJgRcEOtEKL_cNYgK1u_zmjPX1K4cdIxg"
+          "current_key": "AIzaSyD1s1hGDavNrV5r8ph9-bzUbj2y7xDchtQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:501140690094:android:b545a5730cc219fc1b093f",
-        "android_client_info": {
-          "package_name": "com.example.todolistfinalben"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBJgRcEOtEKL_cNYgK1u_zmjPX1K4cdIxg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "501140690094-j3kghqrar67fc0e16jjno9s6tqljtue3.apps.googleusercontent.com",
+              "client_id": "263103432308-7nhk0r2rqp3lh64efg3ll13bn0sivvc8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

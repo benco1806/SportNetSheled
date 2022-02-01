@@ -1,5 +1,6 @@
 package com.example.sportnetsheled;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.sportnetsheled.ui.ExploreFragment;
@@ -7,6 +8,7 @@ import com.example.sportnetsheled.ui.HomeFragment;
 import com.example.sportnetsheled.ui.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -15,16 +17,25 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.sportnetsheled.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private Fragment homeFragment = null, exploreFragment = null, profileFragment = null;
+    private UserClass user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(user == null)
+        {
+            if (FirebaseAuth.getInstance().getCurrentUser() == null){
+                startActivityForResult(new Intent(this, WelcomingActivity.class), UserClass.REQUEST_CODE);
+            }
+        }
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
@@ -46,6 +57,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {

@@ -19,17 +19,17 @@
         android:gravity="center"/>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/signinbutton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="sign in"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/signupbuttonb"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/signupbuttonb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="sign up"
@@ -46,5 +46,5 @@
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/signupbuttonb" />
 </androidx.constraintlayout.widget.ConstraintLayout>
