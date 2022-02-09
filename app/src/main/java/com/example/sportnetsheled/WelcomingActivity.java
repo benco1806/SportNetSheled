@@ -72,9 +72,11 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
-        if(requestCode == 1){
-            //
-            ;
+        if(requestCode == 1 && resultCode == RESULT_OK){
+            String firstName = data.getStringExtra("firstName"),
+                    lastName = data.getStringExtra("lastName"),
+                    userName = data.getStringExtra("username");
+            boolean isTrainer = data.getBooleanExtra("isTrainer?", false);
         }
     }
 

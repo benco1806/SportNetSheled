@@ -8,14 +8,14 @@ import android.widget.EditText;
 import com.example.sportnetsheled.R;
 import com.example.sportnetsheled.SigningUpActivity;
 
-public class EPFregmant extends CustomFragment implements View.OnClickListener{
+public class EPFragment extends CustomFragment implements View.OnClickListener{
 
 
     private EditText email, password;
     private SigningUpActivity activity;
     private Button btnFinish;
 
-    public EPFregmant(int layout, Context context) {
+    public EPFragment(int layout, Context context) {
         super(layout, context);
         activity = (SigningUpActivity) context;
     }
@@ -30,6 +30,8 @@ public class EPFregmant extends CustomFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-
+        if(email.getText() != null && password.getText() != null){
+            activity.onEPFragmentDone(email.getText().toString(), password.getText().toString());
+        }
     }
 }
