@@ -1,13 +1,10 @@
 package com.example.sportnetsheled;
 
-import android.app.Activity;
-import android.content.Intent;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.io.Serializable;
-
-public class UserClass implements Serializable {
+@IgnoreExtraProperties
+public class UserClass {
     private String userName;
     private String firstName, lastName;
     private String uid; // - user id - already given by authFirebase
@@ -18,6 +15,15 @@ public class UserClass implements Serializable {
 
 
     public UserClass() {
+        // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public UserClass(String userName, String firstName, String lastName, String uid, boolean isTrainer) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.uid = uid;
+        this.isTrainer = isTrainer;
     }
 
     public String getUserName() {
