@@ -48,6 +48,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.signupbuttonb:
                 //sign up action
+                signUp();
                 break;
             case R.id.googlesigminbtn:
                 //google sign in action
@@ -65,11 +66,15 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == 0) {
+        if (requestCode == 0) { //google request code
             // The Task returned from this call is always completed, no need to attasssch
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
+        }
+        if(requestCode == 1){
+            //
+            ;
         }
     }
 
@@ -85,5 +90,10 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
             Toast.makeText(getApplicationContext(), "can not sign in", Toast.LENGTH_SHORT).show();
             //updateUI(null);
         }
+    }
+
+    private void signUp(){
+        Intent intent = new Intent(this, SigningUpActivity.class);
+        startActivityForResult(intent, 1);
     }
 }
