@@ -10,6 +10,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -23,16 +24,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Fragment homeFragment = null, exploreFragment = null, profileFragment = null;
-    private UserClass user;
+
+    public static UserClass user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         if(user == null)
         {
             if (FirebaseAuth.getInstance().getCurrentUser() == null){
                 startActivityForResult(new Intent(this, WelcomingActivity.class), UserClass.REQUEST_CODE);
+            }else{
+                UserClass.lookForUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
             }
         }
 

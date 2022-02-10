@@ -1,7 +1,16 @@
 package com.example.sportnetsheled;
 
 
+import android.app.ProgressDialog;
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ValueEventListener;
 
 @IgnoreExtraProperties
 public class UserClass {
@@ -51,4 +60,30 @@ public class UserClass {
     }
 
 
+    public static void lookForUser(String uid, Context context) {
+        FirebaseDatabase.getInstance("https://firestoretest-74f9f-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ProgressDialog pd = new ProgressDialog(context);
+                pd.setMessage("loading");
+                pd.setCancelable(false);
+                pd.show();
+
+                for (DataSnapshot pos: snapshot.getChildren()) {
+                    UserClass user = pos.getValue(UserClass.class);
+                    if(uid.equals(user.getUid())){
+                        MainActivity.user = user;
+                        pd.dismiss();
+                        return;
+                    }
+                }
+                pd.dismiss();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }

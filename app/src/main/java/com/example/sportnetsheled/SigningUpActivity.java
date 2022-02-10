@@ -2,6 +2,7 @@ package com.example.sportnetsheled;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,8 +48,8 @@ public class SigningUpActivity extends AppCompatActivity {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
-        idFragment.onDestroy();
-        idFragment = null;
+        this.isTrainer = isTrainer;
+        idFragment.destroy();
         setUpEPfragment();
 
     }
@@ -66,24 +67,23 @@ public class SigningUpActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(EP_SIGNUP_DATARETURNED, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
                             comeBackToMainUI();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(EP_SIGNUP_DATARETURNED, "createUserWithEmail:failure", task.getException());
                             Toast.makeText(getApplicationContext(), "Authentication failed, try again",
                                     Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
+
                         }
                     }
                 });
+
 
     }
 
     private void comeBackToMainUI() {
         Intent intent = new Intent();
-        intent.putExtra("firatName", firstName);
+        intent.putExtra("firstName", firstName);
         intent.putExtra("lastname", lastName);
         intent.putExtra("username", userName);
         intent.putExtra("isTrainer?", isTrainer);

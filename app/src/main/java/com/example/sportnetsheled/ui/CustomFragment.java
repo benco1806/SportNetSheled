@@ -37,9 +37,8 @@ public class CustomFragment extends Fragment {
         //throw new Exception("you must override it!!");
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void destroy(){
         thisView = null;
+        onDestroy();
     }
 }
