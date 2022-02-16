@@ -61,7 +61,7 @@ public class UserClass {
 
 
     public static void lookForUser(String uid, Context context) {
-        FirebaseDatabase.getInstance("https://firestoretest-74f9f-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ProgressDialog pd = new ProgressDialog(context);

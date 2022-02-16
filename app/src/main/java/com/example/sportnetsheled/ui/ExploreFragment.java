@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.sportnetsheled.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class ExploreFragment extends CustomFragment {
@@ -23,7 +24,10 @@ public class ExploreFragment extends CustomFragment {
         imageView.setOnClickListener(onClickListener);
     }
 
-    private View.OnClickListener onClickListener = view -> view.setBackgroundColor(Color.YELLOW);
+    private View.OnClickListener onClickListener = view -> {
+        view.setBackgroundColor(Color.YELLOW);
+        FirebaseAuth.getInstance().signOut();
+    };
 
 
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.example.sportnetsheled.MainActivity;
 import com.example.sportnetsheled.Post;
 import com.example.sportnetsheled.ProfileGridAdapter;
 import com.example.sportnetsheled.R;
@@ -45,6 +46,8 @@ public class ProfileFragment extends CustomFragment implements View.OnClickListe
         gridView = (GridView) thisView.findViewById(R.id.profileGrid);
 
         gridView.setAdapter(adapter);
+
+        ((TextView)thisView.findViewById(R.id.textView)).setText(MainActivity.user.getUserName());
 
     }
 
