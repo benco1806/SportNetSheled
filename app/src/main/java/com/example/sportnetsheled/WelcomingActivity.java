@@ -21,6 +21,7 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -62,6 +63,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
         switch (view.getId()){
             case R.id.signinbutton:
                 //sign in action
+                signIn();
                 break;
             case R.id.signupbuttonb:
                 //sign up action
@@ -72,6 +74,23 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
                 googleSignIn();
                 break;
         }
+    }
+
+    private void signIn() {
+        setContentView(R.layout.email_password_signup_layout);
+        EditText etEmail = (EditText) findViewById(R.id.emailsignupet),
+                etPassword = (EditText) findViewById(R.id.passwordsignupet);
+
+        Button button = (Button) findViewById(R.id.btnextidsignup);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(etEmail.getText() != null & etPassword.getText() != null){
+                    signingIn(etEmail.getText().toString(), etPassword.getText().toString());
+                }
+            }
+        });
+
     }
 
     private void googleSignIn() {
@@ -195,5 +214,29 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
+    }
+
+
+
+    private void signingIn(String email, String password)
+    {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("GoogleSigningIn", "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            finish();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("GoogleSigningIn", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(getApplicationContext(), "Authentication failed, try again please...",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
