@@ -23,11 +23,12 @@ public class PostManager {
     public void getUri(Post p, VideoView vv) throws IOException {
         StorageReference reference = storage.getReferenceFromUrl(p.getPath());
         File localFile = File.createTempFile("i"+ "gzo", ".mp4");
+        p.setUriHere(true);
         reference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                p.setUri(Uri.fromFile(localFile));
-                vv.setVideoURI(p.getUri());
+                Uri uri = Uri.fromFile(localFile);
+                vv.setVideoURI(uri);
                 vv.start();
                 vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override

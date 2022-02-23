@@ -21,6 +21,7 @@ public class UserClass {
     private String uid; // - user id - already given by authFirebase
     private String[] muscles; // see - static class MusclesClass
     private boolean isTrainer;
+    private Post[] myPosts; //posts the user published
 
     public final static int REQUEST_CODE = 32145;
 

@@ -2,6 +2,7 @@ package com.example.sportnetsheled;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -69,7 +71,7 @@ public class HomeListViewAdapter extends BaseAdapter {
         viewHolder.tvPost.setText(post.getTextApp());
 
 
-        if (post.getUri() == null) {
+        if (!post.isUriHere()) {
             try {
                 pm.getUri(post, viewHolder.videoView);
             } catch (IOException e) {
