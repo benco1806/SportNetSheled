@@ -16,6 +16,7 @@ public class CustomFragment extends Fragment {
     protected View thisView = null;
     protected int layout;
     protected Context context;
+    protected boolean isSynchronized = true;
 
     public CustomFragment(@LayoutRes int layout, Context context) {
         this.layout = layout;
@@ -35,6 +36,9 @@ public class CustomFragment extends Fragment {
 
     protected void intilaize(){
         //throw new Exception("you must override it!!");
+    }
+
+    public void onUserDataHasSynchronized(){
     }
 
     public void destroy(){

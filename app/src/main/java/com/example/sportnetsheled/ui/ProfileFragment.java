@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class ProfileFragment extends CustomFragment implements View.OnClickListener {
 
-    private int greyColor = Color.rgb(195, 198, 201), nonColor = 0x00000000;
-    private TextView tvmyfav, tvmywork;
+    private final int greyColor = Color.rgb(195, 198, 201), nonColor = 0x00000000;
+    private TextView tvmyfav, tvmywork, tv;
     private boolean isMyfavSetted;
     private GridView gridView;
     private ProfileGridAdapter adapter;
@@ -47,7 +47,12 @@ public class ProfileFragment extends CustomFragment implements View.OnClickListe
 
         gridView.setAdapter(adapter);
 
-        ((TextView)thisView.findViewById(R.id.textView)).setText(MainActivity.user.getUserName());
+        tv = (TextView)thisView.findViewById(R.id.textView);
+
+        if (!isSynchronized){
+            onUserDataHasSynchronized();
+            isSynchronized = false;
+        }
 
     }
 
@@ -62,6 +67,15 @@ public class ProfileFragment extends CustomFragment implements View.OnClickListe
                 tvmywork.setBackgroundColor(greyColor);
                 tvmyfav.setBackgroundColor(nonColor);
                 isMyfavSetted = false;
+        }
+    }
+
+    @Override
+    public void onUserDataHasSynchronized() {
+        if(thisView != null){
+          tv.setText(MainActivity.user.getUserName());
+        }else{
+            isSynchronized = false;
         }
     }
 }

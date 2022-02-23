@@ -3,6 +3,8 @@ package com.example.sportnetsheled;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -60,29 +62,32 @@ public class UserClass {
     }
 
 
-    public static void lookForUser(String uid, Context context) {
+    public static void lookForUser(String uid, ProgressDialog progressDialog, MainActivity main) {
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ProgressDialog pd = new ProgressDialog(context);
-                pd.setMessage("loading");
-                pd.setCancelable(false);
-                pd.show();
+
 
                 for (DataSnapshot pos: snapshot.getChildren()) {
                     UserClass user = pos.getValue(UserClass.class);
                     if(uid.equals(user.getUid())){
                         MainActivity.user = user;
-                        pd.dismiss();
+                        progressDialog.dismiss();
+                        main.onUserDataHasSynchronized();
                         return;
                     }
                 }
-                pd.dismiss();
+                progressDialog.dismiss();
+                Log.e("USER.CLASS:onDataChange","can not find the user: " + uid);
+                Toast.makeText(main, "USER.CLASS:onDataChange error", Toast.LENGTH_SHORT).show();
+                System.exit(-1);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.e("USER.CLASS:onCancelled",error.toException().getLocalizedMessage());
+                Toast.makeText(main, "USER.CLASS:onDataCancelled error", Toast.LENGTH_SHORT).show();
+                System.exit(-1);
             }
         });
     }

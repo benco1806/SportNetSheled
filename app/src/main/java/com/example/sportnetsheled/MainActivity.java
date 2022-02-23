@@ -1,8 +1,12 @@
 package com.example.sportnetsheled;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.example.sportnetsheled.ui.CustomFragment;
 import com.example.sportnetsheled.ui.ExploreFragment;
 import com.example.sportnetsheled.ui.HomeFragment;
 import com.example.sportnetsheled.ui.ProfileFragment;
@@ -23,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
 
-    private Fragment homeFragment = null, exploreFragment = null, profileFragment = null;
+    private CustomFragment homeFragment = null, exploreFragment = null, profileFragment = null;
 
     public static UserClass user;
 
@@ -32,13 +36,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-
         if(user == null)
         {
             if (FirebaseAuth.getInstance().getCurrentUser() == null){
-                startActivityForResult(new Intent(this, WelcomingActivity.class), UserClass.REQUEST_CODE);
+                startActivity(new Intent(this, WelcomingActivity.class));
+                finish();
             }else{
-                UserClass.lookForUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), this);
+                ProgressDialog pd = new ProgressDialog(this);
+                pd.setMessage("loading");
+                pd.setCancelable(false);
+                pd.show();
+                UserClass.lookForUser(FirebaseAuth.getInstance().getCurrentUser().getUid(), pd, this);
             }
         }
 
@@ -65,13 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-
-    }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             item -> {
@@ -100,5 +101,25 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             };
+
+    public void onUserDataHasSynchronized(){
+
+        if(user == null){
+            Log.e("MAIN:onUserDataHasSynchronized","can not find the user: ");
+            Toast.makeText(this, "MAIN:onUserDataHasSynchronized error", Toast.LENGTH_SHORT).show();
+            System.exit(-1);
+        }
+
+        if(homeFragment == null)
+            homeFragment = new HomeFragment(R.layout.fragment_home, this);
+        if(exploreFragment == null)
+            exploreFragment = new ExploreFragment(R.layout.fragment_explore, this);
+        if(profileFragment == null)
+            profileFragment = new ProfileFragment(R.layout.fragment_profile, this);
+
+        //Synchronizing user data for the fragments...
+        profileFragment.onUserDataHasSynchronized();
+        homeFragment.onUserDataHasSynchronized();
+    }
 
 }
