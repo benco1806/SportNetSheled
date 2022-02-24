@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,7 +22,7 @@ public class UserClass {
     private String firstName, lastName;
     private String uid; // - user id - already given by authFirebase
     private String[] muscles; // see - static class MusclesClass
-    private boolean isTrainer;
+    private String isTrainer;
     private Post[] myPosts; //posts the user published
 
     public final static int REQUEST_CODE = 32145;
@@ -30,7 +32,7 @@ public class UserClass {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public UserClass(String userName, String firstName, String lastName, String uid, boolean isTrainer) {
+    public UserClass(String userName, String firstName, String lastName, String uid, String isTrainer) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -58,7 +60,7 @@ public class UserClass {
         return muscles;
     }
 
-    public boolean isTrainer() {
+    public String isTrainer() {
         return isTrainer;
     }
 
@@ -72,9 +74,23 @@ public class UserClass {
                 for (DataSnapshot pos: snapshot.getChildren()) {
                     UserClass user = pos.getValue(UserClass.class);
                     if(uid.equals(user.getUid())){
-                        MainActivity.user = user;
-                        progressDialog.dismiss();
-                        main.onUserDataHasSynchronized();
+                        pos.getRef().child("isTrainer").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.e("USER.CLASS:onDataChange", "Error getting data", task.getException());
+
+                                }
+                                else {
+                                    String s = String.valueOf(task.getResult().getValue());
+                                    Log.d("USER.CLASS:onDataChange", s);
+                                    user.isTrainer = s;
+                                    MainActivity.user = user;
+                                    progressDialog.dismiss();
+                                    main.onUserDataHasSynchronized();
+                                }
+                            }
+                        });
                         return;
                     }
                 }

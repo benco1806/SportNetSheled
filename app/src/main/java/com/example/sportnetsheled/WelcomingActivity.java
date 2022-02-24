@@ -234,7 +234,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
         }
         //(String userName, String firstName, String lastName, String uid, boolean isTrainer)
         //creating the userClass
-        UserClass user = new UserClass(userName, firstName, lastName, uid, isTrainer);
+        UserClass user = new UserClass(userName, firstName, lastName, uid, isTrainer + "");
 
         mUSerDatabase.push().setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

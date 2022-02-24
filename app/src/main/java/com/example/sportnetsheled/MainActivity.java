@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     private void addPost() {
-        if(user.isTrainer()){
+        if(user.isTrainer().equals("true")){
             startActivity(new Intent(this, PostPublisherActivity.class));
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
