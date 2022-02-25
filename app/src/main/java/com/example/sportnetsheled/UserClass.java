@@ -16,14 +16,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+
 @IgnoreExtraProperties
-public class UserClass {
+public class UserClass implements Serializable {
     private String userName;
     private String firstName, lastName;
     private String uid; // - user id - already given by authFirebase
     private String[] muscles; // see - static class MusclesClass
-    private String isTrainer;
-    private Post[] myPosts; //posts the user published
+    private String trainer;
+    private ArrayList<Post> myPosts; //posts the user published
 
     public final static int REQUEST_CODE = 32145;
 
@@ -32,12 +35,32 @@ public class UserClass {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public UserClass(String userName, String firstName, String lastName, String uid, String isTrainer) {
+    public UserClass(String userName, String firstName, String lastName, String uid, String trainer) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.uid = uid;
-        this.isTrainer = isTrainer;
+        this.trainer = trainer;
+    }
+
+    public ArrayList<Post> getMyPosts() {
+        return myPosts;
+    }
+
+    public void setMyPosts(ArrayList<Post> myPosts) {
+        this.myPosts = myPosts;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUserName() {
@@ -61,7 +84,7 @@ public class UserClass {
     }
 
     public String isTrainer() {
-        return isTrainer;
+        return trainer;
     }
 
 
@@ -70,11 +93,10 @@ public class UserClass {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-
                 for (DataSnapshot pos: snapshot.getChildren()) {
                     UserClass user = pos.getValue(UserClass.class);
                     if(uid.equals(user.getUid())){
-                        pos.getRef().child("isTrainer").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        pos.getRef().child("trainer").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {
                                 if (!task.isSuccessful()) {
@@ -84,8 +106,9 @@ public class UserClass {
                                 else {
                                     String s = String.valueOf(task.getResult().getValue());
                                     Log.d("USER.CLASS:onDataChange", s);
-                                    user.isTrainer = s;
-                                    MainActivity.user = user;
+                                    user.trainer = s;
+                                    MainActivity.USER = user;
+                                    MainActivity.USER_REFERENCE = pos.getRef();
                                     progressDialog.dismiss();
                                     main.onUserDataHasSynchronized();
                                 }
@@ -108,4 +131,5 @@ public class UserClass {
             }
         });
     }
+
 }

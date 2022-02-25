@@ -2,6 +2,7 @@ package com.example.sportnetsheled;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,31 +18,26 @@ import com.example.sportnetsheled.ui.HomeFragment;
 import com.example.sportnetsheled.ui.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import com.example.sportnetsheled.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private CustomFragment homeFragment = null, exploreFragment = null, profileFragment = null;
 
-    public static UserClass user;
+    public static UserClass USER;
+    public static DatabaseReference USER_REFERENCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-        if(user == null)
+        if(USER == null)
         {
             if (FirebaseAuth.getInstance().getCurrentUser() == null){
                 startActivity(new Intent(this, WelcomingActivity.class));
@@ -97,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     private void addPost() {
-        if(user.isTrainer().equals("true")){
+        if(USER.isTrainer().equals("true")){
             startActivity(new Intent(this, PostPublisherActivity.class));
         }else{
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -145,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onUserDataHasSynchronized(){
 
-        if(user == null){
+        if(USER == null){
             Log.e("MAIN:onUserDataHasSynchronized","can not find the user: ");
             Toast.makeText(this, "MAIN:onUserDataHasSynchronized error", Toast.LENGTH_SHORT).show();
             System.exit(-1);
@@ -161,6 +157,10 @@ public class MainActivity extends AppCompatActivity {
         //Synchronizing user data for the fragments...
         profileFragment.onUserDataHasSynchronized();
         homeFragment.onUserDataHasSynchronized();
+    }
+
+    public static void updateUser(UserClass userClass){
+        USER_REFERENCE.setValue(userClass);
     }
 
 }

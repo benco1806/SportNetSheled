@@ -188,7 +188,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
             for (DataSnapshot pos: snapshot.getChildren()) {
                 UserClass user = pos.getValue(UserClass.class);
                 if(uid.equals(user.getUid())){
-                    MainActivity.user = user;
+                    MainActivity.USER = user;
                     pd.dismiss();
                     return;
                 }

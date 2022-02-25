@@ -73,7 +73,7 @@ public class ProfileFragment extends CustomFragment implements View.OnClickListe
     @Override
     public void onUserDataHasSynchronized() {
         if(thisView != null){
-          tv.setText(MainActivity.user.getUserName());
+          tv.setText(MainActivity.USER.getUserName());
         }else{
             isSynchronized = false;
         }

@@ -1,31 +1,25 @@
 package com.example.sportnetsheled;
 
 
-import android.net.Uri;
-
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 @IgnoreExtraProperties
-public class Post {
+public class Post implements Serializable {
     private String path;
     private String textApp;
-    private Boolean isUriHere; // ##we must finding a solution - saving it in firebase
+    private boolean isUriHere;
 
-    public Post(String textApp, String path) {
+
+
+    public Post(String textApp, String path, String uid) {
         this.textApp = textApp;
         this.path = path;
         isUriHere = false;
     }
 
     public Post() {
-    }
-
-    public Boolean isUriHere() {
-        return isUriHere;
-    }
-
-    public void setUriHere(Boolean uriHere) {
-        isUriHere = uriHere;
     }
 
     public String getPath() {
@@ -42,5 +36,13 @@ public class Post {
 
     public void setTextApp(String textApp) {
         this.textApp = textApp;
+    }
+
+    public boolean isUriHere() {
+        return isUriHere;
+    }
+
+    public void setUriHere(boolean uriHere) {
+        this.isUriHere = uriHere;
     }
 }
