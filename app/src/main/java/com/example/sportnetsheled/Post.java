@@ -10,13 +10,19 @@ public class Post implements Serializable {
     private String path;
     private String textApp;
     private boolean isUriHere;
+    private String unmame;
 
 
 
-    public Post(String textApp, String path, String uid) {
+    public Post(String textApp, String path, String uid, String uname) {
         this.textApp = textApp;
         this.path = path;
         isUriHere = false;
+        this.unmame = uname;
+    }
+
+    public String getUnmame() {
+        return unmame;
     }
 
     public Post() {

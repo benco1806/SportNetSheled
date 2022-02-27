@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static UserClass USER;
     public static DatabaseReference USER_REFERENCE;
+    public static PostManager postManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-
-
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 //            View home = findViewById(R.id.nav_home);
 //            home.performClick();
 
-
+        postManager = new PostManager();
 
     }
 

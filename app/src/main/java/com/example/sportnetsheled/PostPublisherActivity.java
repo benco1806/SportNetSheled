@@ -80,7 +80,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "נהדר!!!!", Toast.LENGTH_SHORT).show();
-                    Post post = new Post(name, videoRef.getPath(), MainActivity.USER.getUid());
+                    Post post = new Post(name, videoRef.getPath(), MainActivity.USER.getUid(), filename);
                     addPostToUser(post);
                     MainActivity.updateUser(MainActivity.USER);
                 }else{
@@ -92,12 +92,9 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
     }
 
     private void addPostToUser(Post post) {
-        ArrayList<Post> list = MainActivity.USER.getMyPosts();
-        if(list == null){
-            list = new ArrayList<>();
-            MainActivity.USER.setMyPosts(list);
-        }
+        ArrayList<Post> list = MainActivity.postManager.getPostsReffInClass().posts;
         list.add(post);
+        MainActivity.postManager.updatePostsRefOut();
     }
 
     @NonNull

@@ -26,7 +26,6 @@ public class UserClass implements Serializable {
     private String uid; // - user id - already given by authFirebase
     private String[] muscles; // see - static class MusclesClass
     private String trainer;
-    private ArrayList<Post> myPosts; //posts the user published
 
     public final static int REQUEST_CODE = 32145;
 
@@ -41,14 +40,6 @@ public class UserClass implements Serializable {
         this.lastName = lastName;
         this.uid = uid;
         this.trainer = trainer;
-    }
-
-    public ArrayList<Post> getMyPosts() {
-        return myPosts;
-    }
-
-    public void setMyPosts(ArrayList<Post> myPosts) {
-        this.myPosts = myPosts;
     }
 
     public void setUserName(String userName) {
