@@ -24,6 +24,8 @@ import androidx.fragment.app.Fragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -69,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 //            View home = findViewById(R.id.nav_home);
 //            home.performClick();
 
-        postManager = new PostManager();
+        postManager = new PostManager(this);
 
     }
 
@@ -160,6 +162,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static void updateUser(UserClass userClass){
         USER_REFERENCE.setValue(userClass);
+    }
+
+    public void onPostsLoaded(ArrayList<Post> posts){
+        ((HomeFragment)homeFragment).onPostsLoaded(posts);
     }
 
 }

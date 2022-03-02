@@ -5,6 +5,7 @@ import android.widget.ListView;
 
 
 import com.example.sportnetsheled.HomeListViewAdapter;
+import com.example.sportnetsheled.MainActivity;
 import com.example.sportnetsheled.Post;
 import com.example.sportnetsheled.R;
 
@@ -12,27 +13,29 @@ import java.util.ArrayList;
 
 public class HomeFragment extends CustomFragment {
 
+    private ArrayList<Post> posts;
+    private ListView lv;
+    private HomeListViewAdapter adapter;
+    private Context context;
 
 
     public HomeFragment(int layout, Context context) {
         super(layout, context);
+        this.context = context;
+        posts = new ArrayList<>();
     }
 
 
     @Override
     protected void intilaize() {
-//        ArrayList<Post> posts = new ArrayList<Post>();
-//        Post p = new Post("1111", "gs://firestoretest-74f9f.appspot.com/20211229_094450.mp4");
-//        Post p1 = new Post("kfv;~~dl", "gs://firestoretest-74f9f.appspot.com/20211229_094450.mp4");
-//
-//        posts.add(p);
-//        posts.add(p1);
-//
-//
-//        HomeListViewAdapter adapter = new HomeListViewAdapter(getContext(), posts);
-//
-//        ListView lv = (ListView) thisView.findViewById(R.id.list);
-//
-//        lv.setAdapter(adapter);
+        lv = (ListView) thisView.findViewById(R.id.list);
+        adapter = new HomeListViewAdapter(context, posts, MainActivity.postManager);
+        lv.setAdapter(adapter);
+    }
+
+
+    public void onPostsLoaded(ArrayList<Post> posts) {
+        this.posts.add(posts.get(posts.size()-1));
+        adapter.notifyDataSetChanged();
     }
 }

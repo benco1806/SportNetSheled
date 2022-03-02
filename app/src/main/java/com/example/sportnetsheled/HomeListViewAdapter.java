@@ -23,11 +23,11 @@ public class HomeListViewAdapter extends BaseAdapter {
     Set<View> viewSet;
     PostManager pm;
 
-    public HomeListViewAdapter(Context context, List<Post> p) {
+    public HomeListViewAdapter(Context context, List<Post> p, PostManager pm) {
         this.viewSet = new ArraySet<View>();
         this.context = context;
         this.posts = p;
-        pm = new PostManager();
+        this.pm = pm;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class HomeListViewAdapter extends BaseAdapter {
         viewHolder.tvPost.setText(post.getTextApp());
 
 
-        if (post.isUriHere()) {
+        if (!post.isUriHere()) {
             try {
                 pm.getUri(post, viewHolder.videoView);
             } catch (IOException e) {

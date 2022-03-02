@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sportnetsheled.Post;
+
+import java.util.ArrayList;
+
 public class CustomFragment extends Fragment {
 
     protected View thisView = null;
@@ -45,4 +49,5 @@ public class CustomFragment extends Fragment {
         thisView = null;
         onDestroy();
     }
+
 }

@@ -1,8 +1,11 @@
 package com.example.sportnetsheled;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
@@ -28,10 +31,12 @@ public class PostManager {
     private FirebaseStorage storage;
     private DatabaseReference postsRef;
     private PostsReffInClass postsReffInClass;
+    private MainActivity main;
 
 
-    public PostManager() {
-        storage = FirebaseStorage.getInstance();
+    public PostManager(MainActivity main) {
+        this.main = main;
+        storage = FirebaseStorage.getInstance("gs://sportnet-e4209.appspot.com/");
         postsRef = FirebaseDatabase.getInstance().getReference().child("postsReffInClass");
         postsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -45,6 +50,8 @@ public class PostManager {
                     for (int i = 0; i < postsReffInClass.posts.size(); i ++)
                         postsReffInClass.posts.get(i).setUriHere(false);
                 }
+                main.onPostsLoaded(getPostsReffInClass().posts);
+
             }
 
             @Override
@@ -56,9 +63,10 @@ public class PostManager {
     }
 
     public void getUri(Post p, VideoView vv) throws IOException {
-        StorageReference reference = storage.getReferenceFromUrl(p.getPath());
-        File localFile = File.createTempFile("i"+ "gzo", ".mp4");
+        StorageReference reference = storage.getReference(p.getPath());
+        File localFile = File.createTempFile(p.getTextApp(), ".mp4");
         p.setUriHere(true);
+        Log.d("TaskDownLoad", "starting...");
         reference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
