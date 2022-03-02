@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
             if (FirebaseAuth.getInstance().getCurrentUser() == null){
                 startActivity(new Intent(this, WelcomingActivity.class));
                 finish();
+                return;
             }else{
                 ProgressDialog pd = new ProgressDialog(this);
                 pd.setMessage("loading");
