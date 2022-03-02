@@ -26,7 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends AppCompatActivity {
 
-
+//
     private CustomFragment homeFragment = null, exploreFragment = null, profileFragment = null;
 
     public static UserClass USER;
