@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-
+//
     private CustomFragment homeFragment = null, exploreFragment = null, profileFragment = null;
 
     public static UserClass USER;
