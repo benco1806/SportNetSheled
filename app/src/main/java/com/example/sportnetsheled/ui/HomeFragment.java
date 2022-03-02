@@ -35,7 +35,8 @@ public class HomeFragment extends CustomFragment {
 
 
     public void onPostsLoaded(ArrayList<Post> posts) {
-        this.posts.add(posts.get(posts.size()-1));
+        for(int i = 0; i < posts.size(); i++)
+            this.posts.add(posts.get(i));
         adapter.notifyDataSetChanged();
     }
 }

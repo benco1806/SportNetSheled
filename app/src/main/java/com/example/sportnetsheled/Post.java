@@ -11,6 +11,7 @@ public class Post implements Serializable {
     private String textApp;
     private boolean isUriHere;
     private String unmame;
+    private String uid;
 
 
 
@@ -19,6 +20,8 @@ public class Post implements Serializable {
         this.path = path;
         isUriHere = false;
         this.unmame = uname;
+        this.uid = uid;
+
     }
 
     public String getUnmame() {
