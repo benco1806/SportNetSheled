@@ -14,7 +14,7 @@ public class PostDataMuscles extends AppCompatActivity {
         setContentView(R.layout.activity_post_data_muscles);
 
         nbSets = (NumberPicker) findViewById(R.id.nbsets);
-        nbSets.setMinValue(0);
+        nbSets.setMinValue(1);
         nbSets.setMaxValue(10);
         nbSets.setWrapSelectorWheel(true);
     }

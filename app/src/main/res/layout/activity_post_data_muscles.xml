@@ -11,8 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <NumberPicker
+        android:id="@+id/nbsets2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="289dp" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"
@@ -36,91 +44,104 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        android:layout_marginStart="188dp"
+        android:text="sets:"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/nbsets"
+        app:layout_constraintEnd_toStartOf="@+id/nbsets"
+        app:layout_constraintHorizontal_bias="0.78"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="11dp"
-        android:orientation="vertical">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_shoulders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="shoulders"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
+
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_chest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="chest"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
+
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_sixpack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="6 pack"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
+
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_biceps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="biceps"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
+
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_forearms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="forearms"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
+
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_quads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="quads"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
+
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_calves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="calves"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
+
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_upperback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="upper back"
-            android:textSize="20dp"
-            />
+            android:textSize="20dp" />
+
         <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/ch_triceps"
-            android:text="triceps"
-            android:textSize="20dp"
-            />
-        <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/ch_lowerback"
-            android:text="lower back"
-            android:textSize="20dp"
-            />
+            android:text="triceps"
+            android:textSize="20dp" />
+
         <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/ch_gluts"
-        android:text="gluts"
-        android:textSize="20dp"
-        />
+            android:id="@+id/ch_lowerback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="lower back"
+            android:textSize="20dp" />
+
+        <CheckBox
+            android:id="@+id/ch_gluts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="gluts"
+            android:textSize="20dp" />
     </LinearLayout>
 
 
