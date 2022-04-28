@@ -6,6 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".PostDataMuscles">
 
+    <NumberPicker
+        android:id="@+id/nbsets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
 
     <EditText
         android:id="@+id/editTextTextPersonName"

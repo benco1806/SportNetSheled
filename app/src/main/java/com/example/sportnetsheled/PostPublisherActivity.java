@@ -55,17 +55,27 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
             startActivityForResult(intent, 0);
         }else if(view == button && uri != null){
             //uploadPost(uri, etTextApp.getText().toString());
-
+            startActivityForResult(new Intent(this, PostDataMuscles.class), 1);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK){
-            uri = data.getData();
-        }else{
-            Toast.makeText(getApplicationContext(), "no!", Toast.LENGTH_SHORT).show();
+
+        if (requestCode == 0){
+            if (resultCode == RESULT_OK){
+                uri = data.getData();
+            }else{
+                Toast.makeText(getApplicationContext(), "no!", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if (requestCode == 1){
+            if (resultCode == RESULT_OK){
+                ;
+            }else{
+                Toast.makeText(getApplicationContext(), "no!", Toast.LENGTH_SHORT).show();
+            }
         }
 
     }
