@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class PostPublisherActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText etTextApp;
+
     private ImageButton ib;
     private Button button;
     private Uri uri;
@@ -39,9 +39,9 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_publisher);
 
-        etTextApp = (EditText) findViewById(R.id.etTextApp);
+
         ib = (ImageButton) findViewById(R.id.uploadVideo);
-        button = (Button) findViewById(R.id.btPublish);
+        button = (Button) findViewById(R.id.btnextpublish);
 
         ib.setOnClickListener(this);
         button.setOnClickListener(this);
@@ -54,7 +54,8 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
             Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
             startActivityForResult(intent, 0);
         }else if(view == button && uri != null){
-            uploadPost(uri, etTextApp.getText().toString());
+            //uploadPost(uri, etTextApp.getText().toString());
+
         }
     }
 

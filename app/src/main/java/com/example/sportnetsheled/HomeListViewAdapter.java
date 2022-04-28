@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -58,6 +59,9 @@ public class HomeListViewAdapter extends BaseAdapter {
             viewHolder.tvPost = (TextView)view.findViewById(R.id.tvPost);
             viewHolder.videoView = (VideoView)view.findViewById(R.id.videoView);
 
+            //info button
+            viewHolder.infoButton = (ImageView) view.findViewById(R.id.info_post);
+
 
             view.setTag(viewHolder);
         }else{
@@ -67,6 +71,14 @@ public class HomeListViewAdapter extends BaseAdapter {
         final Post post = posts.get(i);
 
         viewHolder.tvPost.setText(post.getTextApp());
+
+        //showing the info of the post:
+        viewHolder.infoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
 
         if (!post.isUriHere()) {
@@ -93,6 +105,7 @@ public class HomeListViewAdapter extends BaseAdapter {
     private static class ViewHolder{
         public TextView tvPost;
         public VideoView videoView;
+        public ImageView infoButton;
     }
 
 

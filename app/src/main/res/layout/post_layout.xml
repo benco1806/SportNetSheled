@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ic_baseline_info_24"
         app:layout_constraintStart_toEndOf="@+id/videoView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/info_post"/>
 
     <VideoView
         android:id="@+id/videoView"
