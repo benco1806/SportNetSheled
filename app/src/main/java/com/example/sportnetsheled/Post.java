@@ -4,6 +4,7 @@ package com.example.sportnetsheled;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 @IgnoreExtraProperties
 public class Post implements Serializable {
@@ -12,6 +13,7 @@ public class Post implements Serializable {
     private boolean isUriHere;
     private String unmame;
     private String uid;
+    private ArrayList<String> muscles;
 
 
 
