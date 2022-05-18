@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/etworkoutname" />
 
     <NumberPicker
         android:id="@+id/nbreps"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nbsets" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etworkoutname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/etworkoutname" />
 
     <TextView
         android:id="@+id/textView7"
@@ -61,7 +61,7 @@
         app:layout_constraintEnd_toStartOf="@+id/nbsets"
         app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/etworkoutname" />
 
     <TextView
         android:id="@+id/textView4"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toStartOf="@+id/nbsets"
         app:layout_constraintHorizontal_bias="0.78"
         app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/etworkoutname" />
 
     <TextView
         android:id="@+id/textView5"

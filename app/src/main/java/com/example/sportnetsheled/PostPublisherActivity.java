@@ -26,6 +26,7 @@ import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PostPublisherActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -63,7 +64,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 0){
+        if (requestCode == 0){ //taking video
             if (resultCode == RESULT_OK){
                 uri = data.getData();
             }else{
@@ -72,7 +73,18 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
         }
         if (requestCode == 1){
             if (resultCode == RESULT_OK){
-                ;
+                //taking out the name:
+                String workout_name = data.getStringExtra(PostDataMuscles.WORKOUTNAMENAMETAG);
+                //taking out the sets value:
+                int sets = data.getIntExtra(PostDataMuscles.SETSNAMETAG, 1);
+                //taking out the reps value:
+                int reps = data.getIntExtra(PostDataMuscles.REPSNAMETAG, 1);
+                //taking out the muscles data... :
+                ArrayList<String> muscles = new ArrayList<>();
+                String[] tmp = data.getStringArrayExtra(PostDataMuscles.MUSCLESNAMETAG);
+                muscles.addAll(Arrays.asList(tmp));
+
+                uploadPost(uri, workout_name, sets, reps, muscles);
             }else{
                 Toast.makeText(getApplicationContext(), "no!", Toast.LENGTH_SHORT).show();
             }
@@ -81,7 +93,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    private void uploadPost(Uri uri, String name){
+    private void uploadPost(Uri uri, String name, int sets, int reps, ArrayList<String> muscles){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         String filename = getFileName();
@@ -91,7 +103,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "נהדר!!!!", Toast.LENGTH_SHORT).show();
-                    Post post = new Post(name, videoRef.getPath(), MainActivity.USER.getUid(), filename);
+                    Post post = new Post(name, videoRef.getPath(), MainActivity.USER.getUid(), filename, muscles, sets, reps);
                     addPostToUser(post);
                     MainActivity.updateUser(MainActivity.USER);
                 }else{

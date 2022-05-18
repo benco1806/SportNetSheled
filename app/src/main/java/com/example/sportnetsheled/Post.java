@@ -14,15 +14,20 @@ public class Post implements Serializable {
     private String unmame;
     private String uid;
     private ArrayList<String> muscles;
+    private int sets;
+    private int reps;
 
 
 
-    public Post(String textApp, String path, String uid, String uname) {
+    public Post(String textApp, String path, String uid, String uname, ArrayList<String> muscles, int sets, int reps) {
         this.textApp = textApp;
         this.path = path;
         isUriHere = false;
         this.unmame = uname;
         this.uid = uid;
+        this.muscles = muscles;
+        this.sets = sets;
+        this.reps = reps;
 
     }
 
@@ -55,5 +60,41 @@ public class Post implements Serializable {
 
     public void setUriHere(boolean uriHere) {
         this.isUriHere = uriHere;
+    }
+
+    public void setUnmame(String unmame) {
+        this.unmame = unmame;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public ArrayList<String> getMuscles() {
+        return muscles;
+    }
+
+    public void setMuscles(ArrayList<String> muscles) {
+        this.muscles = muscles;
+    }
+
+    public int getSets() {
+        return sets;
+    }
+
+    public void setSets(int sets) {
+        this.sets = sets;
+    }
+
+    public int getReps() {
+        return reps;
+    }
+
+    public void setReps(int reps) {
+        this.reps = reps;
     }
 }

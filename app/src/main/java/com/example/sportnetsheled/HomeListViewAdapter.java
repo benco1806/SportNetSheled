@@ -3,6 +3,7 @@ package com.example.sportnetsheled;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.ArraySet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,11 @@ public class HomeListViewAdapter extends BaseAdapter {
         this.context = context;
         this.posts = p;
         this.pm = pm;
+
+        //bug fixing... the Post.isUriHere might be true... so we might false it
+        for(int i = 0; i < posts.size(); i++){
+            posts.get(i).setUriHere(false);
+        }
     }
 
     @Override
@@ -76,7 +82,7 @@ public class HomeListViewAdapter extends BaseAdapter {
         viewHolder.infoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Log.d("TAGGG", i + "");
             }
         });
 
@@ -99,6 +105,8 @@ public class HomeListViewAdapter extends BaseAdapter {
         }
 
         viewSet.add(view);
+
+
         return view;
     }
 

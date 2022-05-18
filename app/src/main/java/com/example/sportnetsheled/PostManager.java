@@ -64,7 +64,7 @@ public class PostManager {
 
     public void getUri(Post p, VideoView vv) throws IOException {
         StorageReference reference = storage.getReference(p.getPath());
-        File localFile = File.createTempFile(p.getTextApp(), ".mp4");
+        File localFile = File.createTempFile(p.getTextApp() + "abcd", ".mp4");
         p.setUriHere(true);
         Log.d("TaskDownLoad", "starting...");
         reference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {

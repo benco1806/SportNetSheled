@@ -11,6 +11,4 @@ public class PostsReffInClass implements Serializable {
 
     public PostsReffInClass() {
     }
-
-
 }

@@ -35,8 +35,8 @@ public class HomeFragment extends CustomFragment {
 
 
     public void onPostsLoaded(ArrayList<Post> posts) {
-        for(int i = 0; i < posts.size(); i++)
-            this.posts.add(posts.get(i));
-        adapter.notifyDataSetChanged();
+        this.posts = posts;
+        adapter = new HomeListViewAdapter(context, posts, MainActivity.postManager);
+        lv.setAdapter(adapter);
     }
 }
