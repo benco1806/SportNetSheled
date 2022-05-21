@@ -22,11 +22,9 @@ public class HomeListViewAdapter extends BaseAdapter {
     private Context context;
     private List<Post> posts;
     LayoutInflater layoutInflater;
-    Set<View> viewSet;
     PostManager pm;
 
     public HomeListViewAdapter(Context context, List<Post> p, PostManager pm) {
-        this.viewSet = new ArraySet<View>();
         this.context = context;
         this.posts = p;
         this.pm = pm;
@@ -54,47 +52,24 @@ public class HomeListViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        ViewHolder viewHolder;
+
+        Post post = posts.get(i);
 
         if(view==null){
             layoutInflater = LayoutInflater.from(this.context);
-
             view=layoutInflater.inflate(R.layout.post_layout,null);
-            viewHolder = new ViewHolder();
-
-            viewHolder.tvPost = (TextView)view.findViewById(R.id.tvPost);
-            viewHolder.videoView = (VideoView)view.findViewById(R.id.videoView);
-
-            //info button
-            viewHolder.infoButton = (ImageView) view.findViewById(R.id.info_post);
-
-
-            view.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder)view.getTag();
+            TextView tv = view.findViewById(R.id.tvPost);
+            tv.setText(post.getTextApp());
         }
-
-        final Post post = posts.get(i);
-
-        viewHolder.tvPost.setText(post.getTextApp());
-
-        //showing the info of the post:
-        viewHolder.infoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("TAGGG", i + "");
-            }
-        });
-
+        VideoView vv = view.findViewById(R.id.videoView);
 
         if (!post.isUriHere()) {
             try {
-                pm.getUri(post, viewHolder.videoView);
+                pm.getUri(post, vv);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }else{
-            VideoView vv = viewHolder.videoView;
             vv.start();
             vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -104,17 +79,12 @@ public class HomeListViewAdapter extends BaseAdapter {
             });
         }
 
-        viewSet.add(view);
 
 
         return view;
     }
 
-    private static class ViewHolder{
-        public TextView tvPost;
-        public VideoView videoView;
-        public ImageView infoButton;
-    }
+
 
 
 
