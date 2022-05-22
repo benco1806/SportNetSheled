@@ -63,22 +63,12 @@ public class HomeListViewAdapter extends BaseAdapter {
         }
         VideoView vv = view.findViewById(R.id.videoView);
 
-        if (!post.isUriHere()) {
-            try {
-                pm.getUri(post, vv);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }else{
-            vv.start();
-            vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mediaPlayer) {
-                    vv.start();
-                }
-            });
-        }
 
+        try {
+            pm.getUri(post, vv);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         return view;

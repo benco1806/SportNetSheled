@@ -11,7 +11,7 @@ public class Post implements Serializable {
     private String path;
     private String textApp;
     private boolean isUriHere;
-    private String unmame;
+    private String unmame; //refactor to filename
     private String uid;
     private ArrayList<String> muscles;
     private int sets;

@@ -63,30 +63,30 @@ public class PostManager {
     }
 
     public void getUri(Post p, VideoView vv) throws IOException {
-        StorageReference reference = storage.getReference(p.getPath());
-        File localFile = File.createTempFile(p.getTextApp() + "abcd", ".mp4");
-        p.setUriHere(true);
-        Log.d("TaskDownLoad", "starting...");
-        reference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                Uri uri = Uri.fromFile(localFile);
-                vv.setVideoURI(uri);
-                vv.start();
-                vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mediaPlayer) {
-                        vv.start();
-                    }
-                });
-                Log.d("TaskDownLoad", "we did it!:: " + localFile.getPath());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.d("TaskDownLoad", "blyat:: " + localFile.getPath());
-            }
-        });
+
+        File localFile = new File(main.getCacheDir(),p.getUnmame() + ".mp4");
+
+
+        if (!localFile.exists()) {
+            StorageReference reference = storage.getReference(p.getPath());
+            File tempFile = new File(main.getCacheDir(),p.getUnmame() + ".mp4");
+            p.setUriHere(true);
+            Log.d("TaskDownLoad", "starting...");
+            reference.getFile(tempFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    setUriVideo(tempFile, vv);
+                    Log.d("TaskDownLoad", "we did it!:: " + tempFile.getPath());
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    Log.d("TaskDownLoad", "blyat:: " + tempFile.getPath());
+                }
+            });
+        }else{
+            setUriVideo(localFile, vv);
+        }
     }
 
     public void updatePostsRefOut(){
@@ -95,5 +95,17 @@ public class PostManager {
 
     public PostsReffInClass getPostsReffInClass() {
         return postsReffInClass;
+    }
+
+    private void setUriVideo(File file, VideoView vv){
+        Uri uri = Uri.fromFile(file);
+        vv.setVideoURI(uri);
+        vv.start();
+        vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                vv.start();
+            }
+        });
     }
 }
