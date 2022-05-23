@@ -58,9 +58,9 @@ public class HomeListViewAdapter extends BaseAdapter {
         if(view==null){
             layoutInflater = LayoutInflater.from(this.context);
             view=layoutInflater.inflate(R.layout.post_layout,null);
-            TextView tv = view.findViewById(R.id.tvPost);
-            tv.setText(post.getTextApp());
         }
+        TextView tv = view.findViewById(R.id.tvPost);
+        tv.setText(post.getTextApp());
         VideoView vv = view.findViewById(R.id.videoView);
 
 

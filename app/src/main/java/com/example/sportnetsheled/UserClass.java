@@ -22,10 +22,11 @@ import java.util.ArrayList;
 @IgnoreExtraProperties
 public class UserClass implements Serializable {
     private String userName;
-    private String firstName, lastName;
+    private String firstName, lastName, email;
     private String uid; // - user id - already given by authFirebase
-    private String[] muscles; // see - static class MusclesClass
+    private ArrayList<String> muscles; // see - static class MusclesClass
     private String trainer;
+    private ArrayList<String> postsFavoriteUid;
 
     public final static int REQUEST_CODE = 32145;
 
@@ -34,12 +35,15 @@ public class UserClass implements Serializable {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public UserClass(String userName, String firstName, String lastName, String uid, String trainer) {
+    public UserClass(String userName, String firstName, String lastName, String email, String uid, ArrayList<String> muscles, String trainer, ArrayList<String> postsFavoriteUid) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
         this.uid = uid;
+        this.muscles = muscles;
         this.trainer = trainer;
+        this.postsFavoriteUid = postsFavoriteUid;
     }
 
     public void setUserName(String userName) {
@@ -70,7 +74,7 @@ public class UserClass implements Serializable {
         return uid;
     }
 
-    public String[] getMuscles() {
+    public ArrayList<String> getMuscles() {
         return muscles;
     }
 

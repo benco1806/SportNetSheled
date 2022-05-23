@@ -30,6 +30,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
 public class WelcomingActivity extends AppCompatActivity implements View.OnClickListener {
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -85,17 +89,20 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
             // The Task returned from this call is always completed, no need to attasssch
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+
         }
         if(requestCode == 1 && resultCode == RESULT_OK){  //signing up actions
             String firstName = data.getStringExtra("firstName"),
                     lastName = data.getStringExtra("lastname"),
-                    userName = data.getStringExtra("username");
+                    userName = data.getStringExtra("username"),
+                    email = data.getStringExtra("email");
             boolean isTrainer = data.getBooleanExtra("isTrainer?", false);
+
+            String[] muscles = data.getStringArrayExtra("muscles");
 
             Log.i("useridben", "firstname: " + firstName + " lastname: " + lastName + " username: " + userName + " trainer?: " + isTrainer);
 
-            createUser(firstName, lastName, userName, isTrainer);
+            createUser(firstName, lastName, userName, isTrainer, muscles, email);
             getBackIntoMainActivity();
         }
     }
@@ -121,6 +128,12 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
 
     private void signingIn(String email, String password)
     {
+        //progress annimation:
+        ProgressDialog pd = new ProgressDialog(this);
+        pd.setMessage("please wait");
+        pd.setCancelable(false);
+        pd.show();
+        //
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -130,12 +143,14 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("GoogleSigningIn", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            pd.dismiss();
                             getBackIntoMainActivity();
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("GoogleSigningIn", "signInWithEmail:failure", task.getException());
                             Toast.makeText(getApplicationContext(), "Authentication failed, try again please...",
                                     Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
                         }
                     }
                 });
@@ -157,84 +172,25 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
 
 
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            Toast.makeText(getApplicationContext(), "welcome " + account.getId(), Toast.LENGTH_SHORT).show();
-            //mUSerDatabase.addValueEventListener(lookForUser);
-            // Signed in successfully, show authenticated UI.
-            //updateUI(account);
-            Log.d("GoogleIDAccount", account.getId());
-//            FirebaseUser tt= FirebaseAuth.getInstance().getCurrentUser();
-//            Log.d("GoogleIn", tt.toString());
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Toast.makeText(getApplicationContext(), "can not sign in", Toast.LENGTH_SHORT).show();
-            Log.e("GoogleError:" , e.toString());
-            //updateUI(null);
-        }
-    }
-
-    private ValueEventListener lookForUser = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            ProgressDialog pd = new ProgressDialog(WelcomingActivity.this);
-            pd.setMessage("loading");
-            pd.setCancelable(false);
-            pd.show();
-
-            for (DataSnapshot pos: snapshot.getChildren()) {
-                UserClass user = pos.getValue(UserClass.class);
-                if(uid.equals(user.getUid())){
-                    MainActivity.USER = user;
-                    pd.dismiss();
-                    return;
-                }
-            }
-            pd.dismiss();
-            loadGoogleVisitor();
-        }
-
-        private void loadGoogleVisitor() {
-            setContentView(R.layout.id_signup_layout);
-            EditText etFirstName = (EditText) findViewById(R.id.firstnamesignup),
-                    etLastName = (EditText) findViewById(R.id.lastnamesignup),
-                    etUserName = (EditText) findViewById(R.id.usernamesignup);
-            RadioButton rbIsTrainer = (RadioButton) findViewById(R.id.trainersignupradio);
-
-
-            Button button = (Button) findViewById(R.id.btnextidsignup);
-            button.setText("finish");
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(etFirstName.getText() != null & etLastName.getText() != null && etUserName.getText() != null){
-                        createUser(etFirstName.getText().toString(), etLastName.getText().toString(), etUserName.getText().toString(), rbIsTrainer.isChecked());
-                    }
-                }
-            });
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    };
 
 
 
-    private void createUser(String firstName, String lastName, String userName, boolean isTrainer){
+
+
+
+    private void createUser(String firstName, String lastName, String userName, boolean isTrainer, String[] arr, String email){
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if(uid == null){
             Log.e("error_firebase", "there is no firebase user");
             System.exit(-1);
         }
-        //(String userName, String firstName, String lastName, String uid, boolean isTrainer)
+
+        //converting the array-muscles to arraylist
+        ArrayList<String> muscles = new ArrayList<>();
+        Collections.addAll(muscles, arr);
         //creating the userClass
-        UserClass user = new UserClass(userName, firstName, lastName, uid, isTrainer + "");
+        //(String userName, String firstName, String lastName, String email, String uid, ArrayList<String> muscles, String trainer, ArrayList<String> postsFavoriteUid)
+        UserClass user = new UserClass(userName, firstName, lastName, email, uid, muscles, isTrainer + "", null);
 
         mUSerDatabase.push().setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

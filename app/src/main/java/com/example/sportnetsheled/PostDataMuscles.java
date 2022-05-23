@@ -9,8 +9,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -44,7 +42,7 @@ public class PostDataMuscles extends AppCompatActivity implements View.OnClickLi
                 (CheckBox) findViewById(R.id.ch_forearms), (CheckBox) findViewById(R.id.ch_quads), (CheckBox) findViewById(R.id.ch_calves), (CheckBox) findViewById(R.id.ch_upperback),
                 (CheckBox) findViewById(R.id.ch_triceps), (CheckBox) findViewById(R.id.ch_lowerback), (CheckBox) findViewById(R.id.ch_gluts)};
 
-        publish = (Button)findViewById(R.id.btPublish);
+        publish = (Button)findViewById(R.id.button);
         publish.setOnClickListener(this);
     }
 
