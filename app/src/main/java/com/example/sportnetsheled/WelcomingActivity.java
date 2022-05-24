@@ -102,7 +102,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
 
             Log.i("useridben", "firstname: " + firstName + " lastname: " + lastName + " username: " + userName + " trainer?: " + isTrainer);
 
-            createUser(firstName, lastName, userName, isTrainer, muscles, email);
+            createUser(firstName, lastName, userName, muscles, email);
             getBackIntoMainActivity();
         }
     }
@@ -178,7 +178,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
 
 
 
-    private void createUser(String firstName, String lastName, String userName, boolean isTrainer, String[] arr, String email){
+    private void createUser(String firstName, String lastName, String userName, String[] arr, String email){
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if(uid == null){
             Log.e("error_firebase", "there is no firebase user");

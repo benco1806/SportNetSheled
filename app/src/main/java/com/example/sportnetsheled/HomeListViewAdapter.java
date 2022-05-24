@@ -66,8 +66,4 @@ public class HomeListViewAdapter extends BaseAdapter {
         return view;
     }
 
-
-
-
-
 }

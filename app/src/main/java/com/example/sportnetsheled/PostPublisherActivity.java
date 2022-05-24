@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -103,14 +104,17 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "נהדר!!!!", Toast.LENGTH_SHORT).show();
-                    Post post = new Post(name, videoRef.getPath(), MainActivity.USER.getUid(), filename, muscles, sets, reps);
+                    Post post = new Post(name, videoRef.getPath(), MainActivity.USER.getUid(), filename, muscles, sets, reps, null);
                     addPostToUser(post);
                     MainActivity.updateUser(MainActivity.USER);
+                    Log.d("uploadtask:", "done:");
                 }else{
                     System.exit(-1);
+                    Log.d("uploadtask:", "blya");
                 }
             }
         });
+        Log.d("uploadtask:", "starting:");
         finish();
     }
 

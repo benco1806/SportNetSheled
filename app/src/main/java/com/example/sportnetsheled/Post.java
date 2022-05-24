@@ -15,20 +15,17 @@ public class Post implements Serializable {
     private ArrayList<String> muscles;
     private int sets;
     private int reps;
+    private ArrayList<String> likesuid;
 
-
-
-
-
-    public Post(String textApp, String path, String uid, String uname, ArrayList<String> muscles, int sets, int reps) {
-        this.name = textApp;
+    public Post(String path, String name, String filename, String uiduser, ArrayList<String> muscles, int sets, int reps, ArrayList<String> likesuid) {
         this.path = path;
-        this.filename = uname;
-        this.uiduser = uid;
+        this.name = name;
+        this.filename = filename;
+        this.uiduser = uiduser;
         this.muscles = muscles;
         this.sets = sets;
         this.reps = reps;
-
+        this.likesuid = likesuid;
     }
 
     public String getFilename() {
