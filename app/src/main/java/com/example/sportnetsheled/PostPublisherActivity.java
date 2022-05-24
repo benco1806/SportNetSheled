@@ -81,9 +81,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
                 //taking out the reps value:
                 int reps = data.getIntExtra(PostDataMuscles.REPSNAMETAG, 1);
                 //taking out the muscles data... :
-                ArrayList<String> muscles = new ArrayList<>();
-                String[] tmp = data.getStringArrayExtra(PostDataMuscles.MUSCLESNAMETAG);
-                muscles.addAll(Arrays.asList(tmp));
+                String[] muscles = data.getStringArrayExtra(PostDataMuscles.MUSCLESNAMETAG);
 
                 uploadPost(uri, workout_name, sets, reps, muscles);
             }else{
@@ -94,17 +92,23 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    private void uploadPost(Uri uri, String name, int sets, int reps, ArrayList<String> muscles){
+    private void uploadPost(Uri uri, String name, int sets, int reps, String[] muscles){
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         String filename = getFileName();
         StorageReference videoRef = storageRef.child("video/" + filename + ".mp4");
+
+       Intent intent = new Intent(this, UploadService.class);
+       intent.putExtra("")
+
+
+
         videoRef.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "נהדר!!!!", Toast.LENGTH_SHORT).show();
-                    Post post = new Post(name, videoRef.getPath(), MainActivity.USER.getUid(), filename, muscles, sets, reps, null);
+                    Post post = new Post(videoRef.getPath(), name, filename, MainActivity.USER.getUid(), muscles, sets, reps, null);
                     addPostToUser(post);
                     MainActivity.updateUser(MainActivity.USER);
                     Log.d("uploadtask:", "done:");
@@ -140,4 +144,6 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
 
         return MainActivity.USER.getUid() + "$" + date + "_" + time + "$" + zone + "$" + MainActivity.USER.getUserName() + "$";
     }
+
+
 }
