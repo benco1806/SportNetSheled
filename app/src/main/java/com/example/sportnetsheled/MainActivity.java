@@ -95,21 +95,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
     private void addPost() {
-        if(USER.isTrainer().equals("true")){
+//        if(USER.isTrainer().equals("true")){
             startActivity(new Intent(this, PostPublisherActivity.class));
-        }else{
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setCancelable(true);
-            builder.setMessage("Only trainers can publish posts, if you want to become a trainer please make contact with app manager");
-            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        }
+//        }else{
+//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//            builder.setCancelable(true);
+//            builder.setMessage("Only trainers can publish posts, if you want to become a trainer please make contact with app manager");
+//            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialogInterface, int i) {
+//                    dialogInterface.dismiss();
+//                }
+//            });
+//            AlertDialog dialog = builder.create();
+//            dialog.show();
+//        }
     }
 
 

@@ -1,18 +1,14 @@
 package com.example.sportnetsheled;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
-import android.view.View;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -47,8 +43,7 @@ public class PostManager {
                     postsReffInClass = new PostsReffInClass();
                     postsReffInClass.posts = new ArrayList<>();
                 }else{
-                    for (int i = 0; i < postsReffInClass.posts.size(); i ++)
-                        postsReffInClass.posts.get(i).setUriHere(false);
+
                 }
                 main.onPostsLoaded(getPostsReffInClass().posts);
 
@@ -64,13 +59,13 @@ public class PostManager {
 
     public void getUri(Post p, VideoView vv) throws IOException {
 
-        File localFile = new File(main.getCacheDir(),p.getUnmame() + ".mp4");
+        File localFile = new File(main.getCacheDir(),p.getFilename() + ".mp4");
 
 
         if (!localFile.exists()) {
             StorageReference reference = storage.getReference(p.getPath());
-            File tempFile = new File(main.getCacheDir(),p.getUnmame() + ".mp4");
-            p.setUriHere(true);
+            File tempFile = new File(main.getCacheDir(),p.getFilename() + ".mp4");
+
             Log.d("TaskDownLoad", "starting...");
             reference.getFile(tempFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override

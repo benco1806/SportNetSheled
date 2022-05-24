@@ -25,8 +25,6 @@ public class UserClass implements Serializable {
     private String firstName, lastName, email;
     private String uid; // - user id - already given by authFirebase
     private ArrayList<String> muscles; // see - static class MusclesClass
-    private String trainer;
-    private ArrayList<String> postsFavoriteUid;
 
     public final static int REQUEST_CODE = 32145;
 
@@ -35,15 +33,13 @@ public class UserClass implements Serializable {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public UserClass(String userName, String firstName, String lastName, String email, String uid, ArrayList<String> muscles, String trainer, ArrayList<String> postsFavoriteUid) {
+    public UserClass(String userName, String firstName, String lastName, String email, String uid, ArrayList<String> muscles) {
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.uid = uid;
         this.muscles = muscles;
-        this.trainer = trainer;
-        this.postsFavoriteUid = postsFavoriteUid;
     }
 
     public void setUserName(String userName) {
@@ -78,9 +74,7 @@ public class UserClass implements Serializable {
         return muscles;
     }
 
-    public String isTrainer() {
-        return trainer;
-    }
+
 
 
     public static void lookForUser(String uid, ProgressDialog progressDialog, MainActivity main) {
@@ -101,7 +95,6 @@ public class UserClass implements Serializable {
                                 else {
                                     String s = String.valueOf(task.getResult().getValue());
                                     Log.d("USER.CLASS:onDataChange", s);
-                                    user.trainer = s;
                                     MainActivity.USER = user;
                                     MainActivity.USER_REFERENCE = pos.getRef();
                                     progressDialog.dismiss();

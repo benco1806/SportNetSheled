@@ -9,30 +9,30 @@ import java.util.ArrayList;
 @IgnoreExtraProperties
 public class Post implements Serializable {
     private String path;
-    private String textApp;
-    private boolean isUriHere;
-    private String unmame; //refactor to filename
-    private String uid;
+    private String name;
+    private String filename; //refactor to filename
+    private String uiduser;
     private ArrayList<String> muscles;
     private int sets;
     private int reps;
 
 
 
+
+
     public Post(String textApp, String path, String uid, String uname, ArrayList<String> muscles, int sets, int reps) {
-        this.textApp = textApp;
+        this.name = textApp;
         this.path = path;
-        isUriHere = false;
-        this.unmame = uname;
-        this.uid = uid;
+        this.filename = uname;
+        this.uiduser = uid;
         this.muscles = muscles;
         this.sets = sets;
         this.reps = reps;
 
     }
 
-    public String getUnmame() {
-        return unmame;
+    public String getFilename() {
+        return filename;
     }
 
     public Post() {
@@ -46,32 +46,27 @@ public class Post implements Serializable {
         this.path = path;
     }
 
-    public String getTextApp() {
-        return textApp;
+    public String getName() {
+        return name;
     }
 
-    public void setTextApp(String textApp) {
-        this.textApp = textApp;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public boolean isUriHere() {
-        return isUriHere;
+
+
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
-    public void setUriHere(boolean uriHere) {
-        this.isUriHere = uriHere;
+    public String getUiduser() {
+        return uiduser;
     }
 
-    public void setUnmame(String unmame) {
-        this.unmame = unmame;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUiduser(String uiduser) {
+        this.uiduser = uiduser;
     }
 
     public ArrayList<String> getMuscles() {

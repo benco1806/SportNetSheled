@@ -190,7 +190,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
         Collections.addAll(muscles, arr);
         //creating the userClass
         //(String userName, String firstName, String lastName, String email, String uid, ArrayList<String> muscles, String trainer, ArrayList<String> postsFavoriteUid)
-        UserClass user = new UserClass(userName, firstName, lastName, email, uid, muscles, isTrainer + "", null);
+        UserClass user = new UserClass(userName, firstName, lastName, email, uid, muscles);
 
         mUSerDatabase.push().setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

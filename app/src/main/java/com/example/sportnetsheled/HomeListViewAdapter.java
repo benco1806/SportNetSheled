@@ -1,20 +1,15 @@
 package com.example.sportnetsheled;
 
 import android.content.Context;
-import android.media.MediaPlayer;
-import android.util.ArraySet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 public class HomeListViewAdapter extends BaseAdapter {
 
@@ -29,10 +24,7 @@ public class HomeListViewAdapter extends BaseAdapter {
         this.posts = p;
         this.pm = pm;
 
-        //bug fixing... the Post.isUriHere might be true... so we might false it
-        for(int i = 0; i < posts.size(); i++){
-            posts.get(i).setUriHere(false);
-        }
+
     }
 
     @Override
@@ -60,7 +52,7 @@ public class HomeListViewAdapter extends BaseAdapter {
             view=layoutInflater.inflate(R.layout.post_layout,null);
         }
         TextView tv = view.findViewById(R.id.tvPost);
-        tv.setText(post.getTextApp());
+        tv.setText(post.getName());
         VideoView vv = view.findViewById(R.id.videoView);
 
 
