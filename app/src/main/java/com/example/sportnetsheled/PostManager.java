@@ -26,27 +26,24 @@ public class PostManager {
     // Create a Cloud Storage reference from the app
     private FirebaseStorage storage;
     private DatabaseReference postsRef;
-    private PostsReffInClass postsReffInClass;
+
     private MainActivity main;
 
 
     public PostManager(MainActivity main) {
         this.main = main;
         storage = FirebaseStorage.getInstance("gs://sportnet-e4209.appspot.com/");
-        postsRef = FirebaseDatabase.getInstance().getReference().child("postsReffInClass");
+        postsRef = FirebaseDatabase.getInstance().getReference().child("posts");
         postsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                postsReffInClass = snapshot.getValue(PostsReffInClass.class);
-
-                if(postsReffInClass == null){
-                    postsReffInClass = new PostsReffInClass();
-                    postsReffInClass.posts = new ArrayList<>();
-                }else{
-
+                ArrayList<Post> posts = new ArrayList<>();
+                for(DataSnapshot shot: snapshot.getChildren()){
+                    Post post = shot.getValue(Post.class);
+                    if(post != null)
+                        posts.add(post);
                 }
-                main.onPostsLoaded(getPostsReffInClass().posts);
-
+                main.onPostsLoaded(posts);
             }
 
             @Override
@@ -84,23 +81,17 @@ public class PostManager {
         }
     }
 
-    public void updatePostsRefOut(){
-        postsRef.setValue(postsReffInClass);
-    }
 
-    public PostsReffInClass getPostsReffInClass() {
-        return postsReffInClass;
-    }
+
+
 
     private void setUriVideo(File file, VideoView vv){
         Uri uri = Uri.fromFile(file);
         vv.setVideoURI(uri);
-        vv.start();
-        vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                vv.start();
-            }
-        });
+
+    }
+
+    public static DatabaseReference getPostsRef(){
+        return FirebaseDatabase.getInstance().getReference().child("posts");
     }
 }

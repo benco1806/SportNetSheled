@@ -16,8 +16,9 @@ public class Post implements Serializable {
     private int sets;
     private int reps;
     private ArrayList<String> likesuid;
+    private String userName;
 
-    public Post(String path, String name, String filename, String uiduser, ArrayList<String> muscles, int sets, int reps, ArrayList<String> likesuid) {
+    public Post(String path, String name, String filename, String uiduser, ArrayList<String> muscles, int sets, int reps, ArrayList<String> likesuid, String userName) {
         this.path = path;
         this.name = name;
         this.filename = filename;
@@ -26,6 +27,7 @@ public class Post implements Serializable {
         this.sets = sets;
         this.reps = reps;
         this.likesuid = likesuid;
+        this.userName = userName;
     }
 
     public String getFilename() {
@@ -52,7 +54,13 @@ public class Post implements Serializable {
     }
 
 
+    public ArrayList<String> getLikesuid() {
+        return likesuid;
+    }
 
+    public String getUserName() {
+        return userName;
+    }
 
     public void setFilename(String filename) {
         this.filename = filename;

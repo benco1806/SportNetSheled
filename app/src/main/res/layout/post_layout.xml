@@ -6,25 +6,10 @@
     android:layout_height="wrap_content"
     >
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_baseline_add_24"
-        app:layout_constraintEnd_toStartOf="@+id/videoView"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_baseline_info_24"
-        app:layout_constraintStart_toEndOf="@+id/videoView"
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/info_post"/>
-
     <VideoView
         android:id="@+id/videoView"
-        android:layout_width="356dp"
-        android:layout_height="626dp"
+        android:layout_width="371dp"
+        android:layout_height="663dp"
         android:layout_margin="25dp"
         android:padding="100dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,27 +19,29 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
         android:padding="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoView"
-        android:orientation="horizontal"
-        android:gravity="center">
+        app:layout_constraintTop_toBottomOf="@+id/videoView">
 
         <TextView
             android:id="@+id/tvPost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"/>
+            android:text="TextView" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_baseline_add_24"/>
+            android:background="@drawable/ic_baseline_add_24" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/favoriteborder"/>
+            android:background="@drawable/favoriteborder" />
 
 
     </LinearLayout>
@@ -69,15 +56,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/videoView" />
 
-    <ImageButton
-        android:id="@+id/imageButton"
+    <TextView
+        android:id="@+id/tvuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/ic_baseline_mode_comment_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/videoView" />
+        android:layout_marginStart="20dp"
+        android:textSize="20dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/videoView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

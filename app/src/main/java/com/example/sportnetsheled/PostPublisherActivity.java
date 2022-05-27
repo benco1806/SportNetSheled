@@ -93,40 +93,24 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
 
 
     private void uploadPost(Uri uri, String name, int sets, int reps, String[] muscles){
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageRef = storage.getReference();
+
         String filename = getFileName();
-        StorageReference videoRef = storageRef.child("video/" + filename + ".mp4");
 
        Intent intent = new Intent(this, UploadService.class);
-       intent.putExtra("")
+       intent.putExtra("uri", uri.toString());
+       intent.putExtra("name", name);
+       intent.putExtra("sets", sets);
+       intent.putExtra("reps", reps);
+       intent.putExtra("muscles", muscles);
+       intent.putExtra("filename", filename);
 
+       startService(intent);
 
-
-        videoRef.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "נהדר!!!!", Toast.LENGTH_SHORT).show();
-                    Post post = new Post(videoRef.getPath(), name, filename, MainActivity.USER.getUid(), muscles, sets, reps, null);
-                    addPostToUser(post);
-                    MainActivity.updateUser(MainActivity.USER);
-                    Log.d("uploadtask:", "done:");
-                }else{
-                    System.exit(-1);
-                    Log.d("uploadtask:", "blya");
-                }
-            }
-        });
         Log.d("uploadtask:", "starting:");
         finish();
     }
 
-    private void addPostToUser(Post post) {
-        ArrayList<Post> list = MainActivity.postManager.getPostsReffInClass().posts;
-        list.add(post);
-        MainActivity.postManager.updatePostsRefOut();
-    }
+
 
     @NonNull
     private String getFileName() {

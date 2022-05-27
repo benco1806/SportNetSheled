@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 //
     private CustomFragment homeFragment = null, exploreFragment = null, profileFragment = null;
+    private boolean isSentToHome = false;
 
     public static UserClass USER;
     public static DatabaseReference USER_REFERENCE;
@@ -95,21 +96,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     private void addPost() {
-//        if(USER.isTrainer().equals("true")){
             startActivity(new Intent(this, PostPublisherActivity.class));
-//        }else{
-//            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//            builder.setCancelable(true);
-//            builder.setMessage("Only trainers can publish posts, if you want to become a trainer please make contact with app manager");
-//            builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialogInterface, int i) {
-//                    dialogInterface.dismiss();
-//                }
-//            });
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
-//        }
     }
 
 
@@ -167,6 +154,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void onPostsLoaded(ArrayList<Post> posts){
         ((HomeFragment)homeFragment).onPostsLoaded(posts);
+        if(!isSentToHome){
+            ((HomeFragment)homeFragment).refresh();
+            isSentToHome = true;
+        }
     }
 
 }

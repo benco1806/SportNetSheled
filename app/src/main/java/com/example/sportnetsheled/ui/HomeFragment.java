@@ -18,11 +18,15 @@ public class HomeFragment extends CustomFragment {
     private HomeListViewAdapter adapter;
     private Context context;
 
+    public void refresh() {
+        adapter.setPosts(posts);
+    }
 
     public HomeFragment(int layout, Context context) {
         super(layout, context);
         this.context = context;
         posts = new ArrayList<>();
+
     }
 
 
@@ -36,7 +40,12 @@ public class HomeFragment extends CustomFragment {
 
     public void onPostsLoaded(ArrayList<Post> posts) {
         this.posts = posts;
-        adapter = new HomeListViewAdapter(context, posts, MainActivity.postManager);
-        lv.setAdapter(adapter);
+
+    }
+
+    @Override
+    public void onResume() {
+        adapter.notifyDataSetChanged();
+        super.onResume();
     }
 }
