@@ -6,9 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
+
+import androidx.core.content.ContextCompat;
 
 import java.io.IOException;
 import java.util.List;
@@ -63,8 +67,20 @@ public class HomeListViewAdapter extends BaseAdapter {
         }
         TextView tv = view.findViewById(R.id.tvPost), tvUser = view.findViewById(R.id.tvuser);
         VideoView vv = view.findViewById(R.id.videoView);
+        ImageButton btLike = (ImageButton) view.findViewById(R.id.btlike);
 
-        tv.setText(post.getName());
+
+        if(post.getLikesuid() != null && post.getLikesuid().contains(MainActivity.USER.getUid())) {
+            btLike.setBackground(ContextCompat.getDrawable(context, R.drawable.favorite));
+
+        }else{
+            if(post.getLikesuid() == null)
+                post.setAnlikeList();
+            btLike.setBackground(ContextCompat.getDrawable(context, R.drawable.favoriteborder));
+
+        }
+
+        tv.setText("Workout name: " + post.getName() + " | sets: " + post.getSets() + " | reps: " + post.getReps());
         tvUser.setText("@" + post.getUserName());
 
         try {
@@ -73,38 +89,9 @@ public class HomeListViewAdapter extends BaseAdapter {
             e.printStackTrace();
         }
 
-        seekingVid(vv);
 
-        vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mediaPlayer) {
-                mediaPlayer.seekTo(0);
-                vv.start();
-            }
-        });
-        vv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(vv.isPlaying()){
-                    vv.pause();
-                }else{
-                    vv.start();
-                }
-            }
-        });
 
         return view;
     }
 
-    private void seekingVid(VideoView vv){
-        vv.start();
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        vv.seekTo(0);
-        vv.pause();
-
-    }
 }

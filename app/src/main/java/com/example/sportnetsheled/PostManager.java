@@ -3,6 +3,7 @@ package com.example.sportnetsheled;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
@@ -56,7 +57,7 @@ public class PostManager {
 
     public void getUri(Post p, VideoView vv) throws IOException {
 
-        File localFile = new File(main.getCacheDir(),p.getFilename() + ".mp4");
+        File localFile = new File(main.getCacheDir(),p.getFilename());
 
 
         if (!localFile.exists()) {
@@ -73,7 +74,7 @@ public class PostManager {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    Log.d("TaskDownLoad", "blyat:: " + tempFile.getPath());
+                    Log.d("TaskDownLoad", "blyat:: " + exception.getLocalizedMessage());
                 }
             });
         }else{
@@ -88,7 +89,25 @@ public class PostManager {
     private void setUriVideo(File file, VideoView vv){
         Uri uri = Uri.fromFile(file);
         vv.setVideoURI(uri);
+        vv.seekTo(1);
 
+        vv.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.seekTo(0);
+                vv.start();
+            }
+        });
+        vv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(vv.isPlaying()){
+                    vv.pause();
+                }else{
+                    vv.start();
+                }
+            }
+        });
     }
 
     public static DatabaseReference getPostsRef(){

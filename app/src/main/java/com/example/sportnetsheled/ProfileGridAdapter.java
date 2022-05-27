@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.VideoView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProfileGridAdapter extends BaseAdapter {
@@ -37,10 +39,24 @@ public class ProfileGridAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 
-        layoutInflater = LayoutInflater.from(this.context);
-        view = layoutInflater.inflate(R.layout.profilepage_post_layout, null);
+        if(view == null){
+            layoutInflater = LayoutInflater.from(this.context);
+            view = layoutInflater.inflate(R.layout.profilepage_post_layout, null);
+        }
+        VideoView vv = view.findViewById(R.id.videoView);
+
+        try {
+            MainActivity.postManager.getUri(posts.get(i), vv);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         return view;
+    }
 
+    public void setPosts(ArrayList<Post> posts) {
+        this.posts = posts;
+        notifyDataSetChanged();
     }
 }

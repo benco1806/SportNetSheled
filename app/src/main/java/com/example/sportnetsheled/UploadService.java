@@ -43,8 +43,7 @@ public class UploadService extends Service {
 
         StorageReference videoRef = storageRef.child("video/" + filename + ".mp4");
 
-        ArrayList<String> muscles = new ArrayList<>();
-        muscles.addAll(Arrays.asList(tmpMuscles));
+        ArrayList<String> muscles = new ArrayList<>(Arrays.asList(tmpMuscles));
 
         videoRef.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -52,13 +51,14 @@ public class UploadService extends Service {
                 if(task.isSuccessful()){
                     Toast.makeText(getApplicationContext(), "נהדר!!!!", Toast.LENGTH_SHORT).show();
                     Post post = new Post(videoRef.getPath(), name, filename, MainActivity.USER.getUid(), muscles, sets, reps, null, MainActivity.USER.getUserName());
-                    addPostToUser(post);
-                    MainActivity.updateUser(MainActivity.USER);
+                    addPostToFirebase(post);
                     Log.d("uploadtask:", "done:");
                     UploadService.this.onDestroy();
                 }else{
-                    System.exit(-1);
+                    //System.exit(-1);
                     Log.d("uploadtask:", "blya");
+                    Log.e("uploadtask:", task.getException().toString());
+                    Toast.makeText(getApplicationContext(), "we couldn't upload the post :-((", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -66,7 +66,7 @@ public class UploadService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private void addPostToUser(Post post) {
+    private void addPostToFirebase(Post post) {
         DatabaseReference postsRef = PostManager.getPostsRef();
         postsRef.push().setValue(post);
     }

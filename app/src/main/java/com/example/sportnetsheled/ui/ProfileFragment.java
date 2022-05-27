@@ -2,25 +2,32 @@ package com.example.sportnetsheled.ui;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
 import com.example.sportnetsheled.MainActivity;
 import com.example.sportnetsheled.Post;
+import com.example.sportnetsheled.PostManager;
 import com.example.sportnetsheled.ProfileGridAdapter;
 import com.example.sportnetsheled.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
-public class ProfileFragment extends CustomFragment implements View.OnClickListener {
+public class ProfileFragment extends CustomFragment{
 
-    private final int greyColor = Color.rgb(195, 198, 201), nonColor = 0x00000000;
-    private TextView tvmyfav, tvmywork, tv;
-    private boolean isMyfavSetted;
+    private TextView tv;
     private GridView gridView;
     private ProfileGridAdapter adapter;
-    private ArrayList<Post> posts;
+    private ArrayList<Post> myposts;
 
     public ProfileFragment(int layout, Context context) {
         super(layout, context);
@@ -28,21 +35,11 @@ public class ProfileFragment extends CustomFragment implements View.OnClickListe
 
     @Override
     protected void intilaize() {
-        tvmyfav = thisView.findViewById(R.id.tvmyfav);
-        tvmywork = thisView.findViewById(R.id.tvmywork);
+        myposts = new ArrayList<>();
 
-        tvmyfav.setBackgroundColor(greyColor);
-        isMyfavSetted = true;
+        lookforMyposts();
 
-        tvmyfav.setOnClickListener(this);
-        tvmywork.setOnClickListener(this);
-
-        posts = new ArrayList<>();
-
-        for(int i = 0; i < 12; i++)
-            posts.add(new Post());
-
-        adapter = new ProfileGridAdapter(context, posts);
+        adapter = new ProfileGridAdapter(context, myposts);
         gridView = (GridView) thisView.findViewById(R.id.profileGrid);
 
         gridView.setAdapter(adapter);
@@ -56,19 +53,7 @@ public class ProfileFragment extends CustomFragment implements View.OnClickListe
 
     }
 
-    @Override
-    public void onClick(View view) {
-        if((!isMyfavSetted) && view == tvmyfav){
-            tvmywork.setBackgroundColor(nonColor);
-            tvmyfav.setBackgroundColor(greyColor);
-            isMyfavSetted = true;
-        }else
-            if(isMyfavSetted && view == tvmywork){
-                tvmywork.setBackgroundColor(greyColor);
-                tvmyfav.setBackgroundColor(nonColor);
-                isMyfavSetted = false;
-        }
-    }
+
 
     @Override
     public void onUserDataHasSynchronized() {
@@ -77,5 +62,36 @@ public class ProfileFragment extends CustomFragment implements View.OnClickListe
         }else{
             isSynchronized = false;
         }
+    }
+
+
+    private void lookforMyposts(){
+        DatabaseReference postsRef = PostManager.getPostsRef();
+        String uidUser = MainActivity.USER.getUid();
+        Query myPostsQuery = postsRef.orderByChild("uiduser").equalTo(uidUser);
+        myPostsQuery.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()){
+                    DataSnapshot snapshot = task.getResult();
+                    if(snapshot.exists()){
+                        myposts = new ArrayList<>();
+                        for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                            Post post = dataSnapshot.getValue(Post.class);
+                            myposts.add(post);
+                        }
+
+                    }
+                    adapter.setPosts(myposts);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

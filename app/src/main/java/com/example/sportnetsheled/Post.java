@@ -97,4 +97,8 @@ public class Post implements Serializable {
     public void setReps(int reps) {
         this.reps = reps;
     }
+
+    public void setAnlikeList(){
+        likesuid = new ArrayList<>();
+    }
 }

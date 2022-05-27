@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -12,15 +13,12 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.MediaController;
 import android.widget.Toast;
+import android.widget.VideoView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.database.DatabaseReference;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -35,6 +33,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
     private ImageButton ib;
     private Button button;
     private Uri uri;
+    private VideoView videoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +43,27 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
 
         ib = (ImageButton) findViewById(R.id.uploadVideo);
         button = (Button) findViewById(R.id.btnextpublish);
+        videoView = (VideoView) findViewById(R.id.videoView);
+
 
         ib.setOnClickListener(this);
         button.setOnClickListener(this);
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(uri != null){
+            videoView.setVideoURI(uri);
+            videoView.seekTo(1);
+            videoView.setVisibility(View.VISIBLE);
+            ib.setVisibility(View.GONE);
+        }else{
+            videoView.setVisibility(View.GONE);
+            ib.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -94,17 +110,22 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
 
     private void uploadPost(Uri uri, String name, int sets, int reps, String[] muscles){
 
-        String filename = getFileName();
+        String filename = "Y4YWEQpj8XX3pqxhGK5iArl2QX02$2022-05-23_22-08-05$+03+00$manyack!!!$.mp4";
 
-       Intent intent = new Intent(this, UploadService.class);
-       intent.putExtra("uri", uri.toString());
-       intent.putExtra("name", name);
-       intent.putExtra("sets", sets);
-       intent.putExtra("reps", reps);
-       intent.putExtra("muscles", muscles);
-       intent.putExtra("filename", filename);
+//       Intent intent = new Intent(this, UploadService.class);
+//       intent.putExtra("uri", uri.toString());
+//       intent.putExtra("name", name);
+//       intent.putExtra("sets", sets);
+//       intent.putExtra("reps", reps);
+//       intent.putExtra("muscles", muscles);
+//       intent.putExtra("filename", filename);
+//
+//       startService(intent);
 
-       startService(intent);
+        Post post = new Post("", name, filename, MainActivity.USER.getUid(), new ArrayList<>(Arrays.asList(muscles)), sets, reps, null, MainActivity.USER.getUserName());
+
+        DatabaseReference postsRef = PostManager.getPostsRef();
+        postsRef.push().setValue(post);
 
         Log.d("uploadtask:", "starting:");
         finish();
