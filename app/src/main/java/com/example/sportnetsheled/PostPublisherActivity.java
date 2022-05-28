@@ -110,22 +110,22 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
 
     private void uploadPost(Uri uri, String name, int sets, int reps, String[] muscles){
 
-        String filename = "Y4YWEQpj8XX3pqxhGK5iArl2QX02$2022-05-23_22-08-05$+03+00$manyack!!!$.mp4";
+        String filename = getFileName();
 
-//       Intent intent = new Intent(this, UploadService.class);
-//       intent.putExtra("uri", uri.toString());
-//       intent.putExtra("name", name);
-//       intent.putExtra("sets", sets);
-//       intent.putExtra("reps", reps);
-//       intent.putExtra("muscles", muscles);
-//       intent.putExtra("filename", filename);
+       Intent intent = new Intent(this, UploadService.class);
+       intent.putExtra("uri", uri.toString());
+       intent.putExtra("name", name);
+       intent.putExtra("sets", sets);
+       intent.putExtra("reps", reps);
+       intent.putExtra("muscles", muscles);
+       intent.putExtra("filename", filename);
+
+       startService(intent);
+
+//        Post post = new Post("", name, filename, MainActivity.USER.getUid(), new ArrayList<>(Arrays.asList(muscles)), sets, reps, null, MainActivity.USER.getUserName());
 //
-//       startService(intent);
-
-        Post post = new Post("", name, filename, MainActivity.USER.getUid(), new ArrayList<>(Arrays.asList(muscles)), sets, reps, null, MainActivity.USER.getUserName());
-
-        DatabaseReference postsRef = PostManager.getPostsRef();
-        postsRef.push().setValue(post);
+//        DatabaseReference postsRef = PostManager.getPostsRef();
+//        postsRef.push().setValue(post);
 
         Log.d("uploadtask:", "starting:");
         finish();

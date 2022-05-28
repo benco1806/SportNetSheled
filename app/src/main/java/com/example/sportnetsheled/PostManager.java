@@ -41,8 +41,10 @@ public class PostManager {
                 ArrayList<Post> posts = new ArrayList<>();
                 for(DataSnapshot shot: snapshot.getChildren()){
                     Post post = shot.getValue(Post.class);
-                    if(post != null)
+                    if(post != null){
+                        post.setRefName(shot.getKey());
                         posts.add(post);
+                    }
                 }
                 main.onPostsLoaded(posts);
             }
@@ -57,7 +59,7 @@ public class PostManager {
 
     public void getUri(Post p, VideoView vv) throws IOException {
 
-        File localFile = new File(main.getCacheDir(),p.getFilename());
+        File localFile = new File(main.getCacheDir(),p.getFilename() + ".mp4");
 
 
         if (!localFile.exists()) {

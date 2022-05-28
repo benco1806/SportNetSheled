@@ -17,6 +17,7 @@ public class Post implements Serializable {
     private int reps;
     private ArrayList<String> likesuid;
     private String userName;
+    private String refName;
 
     public Post(String path, String name, String filename, String uiduser, ArrayList<String> muscles, int sets, int reps, ArrayList<String> likesuid, String userName) {
         this.path = path;
@@ -100,5 +101,13 @@ public class Post implements Serializable {
 
     public void setAnlikeList(){
         likesuid = new ArrayList<>();
+    }
+
+    public String getRefName() {
+        return refName;
+    }
+
+    public void setRefName(String refName) {
+        this.refName = refName;
     }
 }
