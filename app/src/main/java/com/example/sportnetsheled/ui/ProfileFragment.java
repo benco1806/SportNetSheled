@@ -58,7 +58,7 @@ public class ProfileFragment extends CustomFragment{
     @Override
     public void onUserDataHasSynchronized() {
         if(thisView != null){
-          tv.setText(MainActivity.USER.getUserName());
+          tv.setText("@" + MainActivity.USER.getUserName());
         }else{
             isSynchronized = false;
         }

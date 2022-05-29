@@ -25,7 +25,6 @@ public class SigningUpActivity extends AppCompatActivity {
     private String firstName, lastName, userName; //first group
     private String email;
     private ArrayList<String> muscles;
-    private boolean isTrainer;
     private IDFragment idFragment;
     private EPFragment epFragment;
     private MusclesFragment musclesFragment;
@@ -49,13 +48,12 @@ public class SigningUpActivity extends AppCompatActivity {
     }
 
 
-    public void onIDFregmantDone(String firstName, String lastName, String userName, boolean isTrainer)
+    public void onIDFregmantDone(String firstName, String lastName, String userName)
     {
-        Log.e(ID_SIGNUP_DATARETURNED, "firstName: " + firstName +", last name: " + lastName + ", user name: " + userName + ", isTrainer? " + isTrainer);
+        Log.e(ID_SIGNUP_DATARETURNED, "firstName: " + firstName +", last name: " + lastName + ", user name: " + userName);
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
-        this.isTrainer = isTrainer;
         idFragment.destroy();
         setupMusclesFragmentDone();
 
@@ -118,7 +116,6 @@ public class SigningUpActivity extends AppCompatActivity {
         intent.putExtra("firstName", firstName);
         intent.putExtra("lastname", lastName);
         intent.putExtra("username", userName);
-        intent.putExtra("isTrainer?", isTrainer);
         intent.putExtra("muscles",muscles);
         intent.putExtra("email", email);
         setResult(RESULT_OK, intent);

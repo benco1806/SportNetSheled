@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
             addPost();
         }else {
             FirebaseAuth.getInstance().signOut();
-            finish();
         }
 
         return super.onOptionsItemSelected(item);

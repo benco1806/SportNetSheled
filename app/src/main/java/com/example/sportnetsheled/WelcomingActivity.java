@@ -36,7 +36,6 @@ import java.util.Collections;
 
 public class WelcomingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private GoogleSignInClient mGoogleSignInClient;
     private DatabaseReference mUSerDatabase;
 
     @Override
@@ -48,15 +47,6 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
         signIn.setOnClickListener(this);
         signUp.setOnClickListener(this);
 
-        SignInButton signInButton = findViewById(R.id.googlesigminbtn);
-        signInButton.setOnClickListener(this);
-
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         //getting accsses to the reference of the users in the firebase
         mUSerDatabase = FirebaseDatabase.getInstance().getReference().child("users");
@@ -73,10 +63,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
                 //sign up action
                 signUp();
                 break;
-            case R.id.googlesigminbtn:
-                //google sign in action
-                googleSignIn();
-                break;
+
         }
     }
 
@@ -165,10 +152,7 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
     }
 
 
-    private void googleSignIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, 0);
-    }
+
 
 
 

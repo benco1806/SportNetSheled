@@ -29,7 +29,6 @@ public class IDFragment extends CustomFragment implements View.OnClickListener{
         lastName = (EditText) thisView.findViewById(R.id.lastnamesignup);
         userName = (EditText) thisView.findViewById(R.id.usernamesignup);
         btNext = thisView.findViewById(R.id.btnextidsignup);
-        rbTrainer = thisView.findViewById(R.id.trainersignupradio);
 
         btNext.setOnClickListener(this);
     }
@@ -37,7 +36,7 @@ public class IDFragment extends CustomFragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if(view == btNext & firstName.getText() != null & lastName.getText() != null && userName.getText() != null){
-            activity.onIDFregmantDone(firstName.getText().toString(), lastName.getText().toString(), userName.getText().toString(), rbTrainer.isChecked());
+            activity.onIDFregmantDone(firstName.getText().toString(), lastName.getText().toString(), userName.getText().toString());
         }
     }
 }
