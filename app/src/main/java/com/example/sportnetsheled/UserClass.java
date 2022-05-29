@@ -87,7 +87,9 @@ public class UserClass implements Serializable {
         return following;
     }
 
-
+    public void setFollowing() {
+        this.following = new ArrayList<>();
+    }
 
     public static void lookForUser(String uid, ProgressDialog progressDialog, MainActivity main) {
         FirebaseDatabase.getInstance().getReference("users").addValueEventListener(new ValueEventListener() {

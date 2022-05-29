@@ -1,6 +1,7 @@
 package com.example.sportnetsheled;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
@@ -31,19 +32,16 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.util.List;
 
-public class HomeListViewAdapter extends BaseAdapter {
+public class myAdapter extends BaseAdapter {
 
 
     private Context context;
-
-
-
     private List<Post> posts;
     LayoutInflater layoutInflater;
     PostManager pm;
     Animation animation;
 
-    public HomeListViewAdapter(Context context, List<Post> p, PostManager pm) {
+    public myAdapter(Context context, List<Post> p, PostManager pm) {
         this.context = context;
         this.posts = p;
         this.pm = pm;
@@ -84,6 +82,44 @@ public class HomeListViewAdapter extends BaseAdapter {
         VideoView vv = view.findViewById(R.id.videoView);
         ImageButton btLike = (ImageButton) view.findViewById(R.id.btlike);
         TextView tvLikes = (TextView) view.findViewById(R.id.tvLikes);
+        TextView tvFollow = (TextView) view.findViewById(R.id.tvFollow);
+
+        if(MainActivity.USER.getUid().equals(post.getUiduser())){
+            tvFollow.setVisibility(View.GONE);
+        }else{
+            if(MainActivity.USER.getFollowing() == null){
+                MainActivity.USER.setFollowing();
+                tvFollow.setText("follow");
+                tvFollow.setTextColor(Color.BLUE);
+            }else{
+
+
+
+                if(MainActivity.USER.getFollowing().contains(post.getUiduser())){
+                    tvFollow.setText("following");
+                    tvFollow.setTextColor(Color.GRAY);
+                }else{
+                    tvFollow.setText("follow");
+                    tvFollow.setTextColor(Color.BLUE);
+                }
+            }
+        }
+
+        tvFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(tvFollow.getText().toString().equals("follow")){
+                    setStatusWithUser("follow", post); // to follow
+                    tvFollow.setText("following");
+                    tvFollow.setTextColor(Color.GRAY);
+                }else{
+                    setStatusWithUser("following", post); // to unfollow
+                    tvFollow.setText("follow");
+                    tvFollow.setTextColor(Color.BLUE);
+                }
+            }
+        });
+
 
         setLikes(tvLikes, post);
 
@@ -126,6 +162,17 @@ public class HomeListViewAdapter extends BaseAdapter {
 
 
         return view;
+    }
+
+    private void setStatusWithUser(String s, Post post) {
+        if(s.equals("follow")){//to follow
+            MainActivity.USER.getFollowing().add(post.getUiduser());
+        }else{
+            //to unfollow
+            MainActivity.USER.getFollowing().remove(post.getUiduser());
+        }
+
+        MainActivity.USER_REFERENCE.setValue(MainActivity.USER);
     }
 
     private void setLikes(TextView tvLikes, Post post) {

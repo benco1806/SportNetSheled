@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     public static DatabaseReference USER_REFERENCE;
     public static PostManager postManager;
 
+    private boolean issavedInstanceStatenull = false;
+    BottomNavigationView bottomNav;
+    MyReceiver receiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,24 +63,25 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
+        bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
 
 
         //I added this if statement to keep the selected fragment when rotating the device
         if (savedInstanceState == null) {
-            homeFragment = new HomeFragment(R.layout.fragment_home, this);
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
-            bottomNav.setSelectedItemId(R.id.nav_home);
+            issavedInstanceStatenull = true;
         }
 
-//            View home = findViewById(R.id.nav_home);
-//            home.performClick();
-
-        postManager = new PostManager(this);
+        receiver = new MyReceiver();
 
     }
+
+    protected void onStart() {
+        registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        super.onStart();
+    }
+
 
 
     @Override
@@ -86,10 +92,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStop() {
+        unregisterReceiver(receiver);
+        super.onStop();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         if(item.getItemId() == R.id.itAddPost){
             addPost();
+        }else {
+            FirebaseAuth.getInstance().signOut();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -112,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_explore:
                         if(exploreFragment == null)
-                            exploreFragment = new ExploreFragment(R.layout.fragment_explore, this);
+                            exploreFragment = new ExploreFragment(R.layout.fragment_home, this);
                         selectedFragment = exploreFragment;
                         break;
                     case R.id.nav_profile:
@@ -130,6 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onUserDataHasSynchronized(){
 
+        if(issavedInstanceStatenull){
+            postManager = new PostManager(MainActivity.this);
+            homeFragment = new HomeFragment(R.layout.fragment_home, this);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeFragment).commit();
+            bottomNav.setSelectedItemId(R.id.nav_home);
+            issavedInstanceStatenull = false;
+        }
+
         if(USER == null){
             Log.e("MAIN:onUserDataHasSynchronized","can not find the user: ");
             Toast.makeText(this, "MAIN:onUserDataHasSynchronized error", Toast.LENGTH_SHORT).show();
@@ -139,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
         if(homeFragment == null)
             homeFragment = new HomeFragment(R.layout.fragment_home, this);
         if(exploreFragment == null)
-            exploreFragment = new ExploreFragment(R.layout.fragment_explore, this);
+            exploreFragment = new ExploreFragment(R.layout.fragment_home, this);
         if(profileFragment == null)
             profileFragment = new ProfileFragment(R.layout.fragment_profile, this);
 
@@ -148,16 +171,18 @@ public class MainActivity extends AppCompatActivity {
         homeFragment.onUserDataHasSynchronized();
     }
 
-    public static void updateUser(UserClass userClass){
-        USER_REFERENCE.setValue(userClass);
-    }
 
-    public void onPostsLoaded(ArrayList<Post> posts){
+
+    public void onHomePostsLoaded(ArrayList<Post> posts){
         ((HomeFragment)homeFragment).onPostsLoaded(posts);
         if(!isSentToHome){
             ((HomeFragment)homeFragment).refresh();
             isSentToHome = true;
         }
+    }
+
+    public void onExplorePostsLoaded(ArrayList<Post> posts){
+
     }
 
 }

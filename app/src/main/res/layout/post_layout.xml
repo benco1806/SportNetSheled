@@ -8,10 +8,11 @@
 
     <VideoView
         android:id="@+id/videoView"
-        android:layout_width="368dp"
-        android:layout_height="634dp"
+        android:layout_width="370dp"
+        android:layout_height="642dp"
         android:layout_margin="25dp"
         android:padding="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textSize="15dp"/>
+            android:textSize="15dp" />
 
 
     </LinearLayout>
@@ -51,11 +52,10 @@
         android:id="@+id/tvuser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:textSize="20dp"
         android:text="TextView"
+        android:textSize="25dp"
         app:layout_constraintBottom_toTopOf="@+id/videoView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/videoView"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
@@ -68,6 +68,16 @@
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/videoView" />
+
+    <TextView
+        android:id="@+id/tvFollow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:text="TextView"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/videoView"
+        app:layout_constraintEnd_toEndOf="@+id/videoView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

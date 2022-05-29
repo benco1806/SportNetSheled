@@ -66,26 +66,23 @@ public class ProfileFragment extends CustomFragment{
 
 
     private void lookforMyposts(){
-        DatabaseReference postsRef = PostManager.getPostsRef();
-        String uidUser = MainActivity.USER.getUid();
-        Query myPostsQuery = postsRef.orderByChild("uiduser").equalTo(uidUser);
-        myPostsQuery.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        PostManager.getPostsRef().get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.isSuccessful()){
-                    DataSnapshot snapshot = task.getResult();
-                    if(snapshot.exists()){
-                        myposts = new ArrayList<>();
-                        for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                            Post post = dataSnapshot.getValue(Post.class);
-                            myposts.add(post);
-                        }
-
+                if (task.isSuccessful() && task.getResult().exists()){
+                    ArrayList<Post> posts = new ArrayList<>();
+                    for(DataSnapshot shot : task.getResult().getChildren()){
+                        Post p = shot.getValue(Post.class);
+                        p.setRefName(shot.getKey());
+                        if(p.getUiduser().equals(MainActivity.USER.getUid()))
+                            posts.add(p);
                     }
+                    myposts = posts;
                     adapter.setPosts(myposts);
                 }
             }
         });
+
 
     }
 
