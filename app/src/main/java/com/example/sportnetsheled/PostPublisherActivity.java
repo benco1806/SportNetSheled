@@ -2,11 +2,13 @@ package com.example.sportnetsheled;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.provider.MediaStore;
@@ -77,6 +79,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -108,6 +111,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void uploadPost(Uri uri, String name, int sets, int reps, String[] muscles){
 
         String filename = getFileName();
@@ -122,17 +126,13 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
 
        startService(intent);
 
-//        Post post = new Post("", name, filename, MainActivity.USER.getUid(), new ArrayList<>(Arrays.asList(muscles)), sets, reps, null, MainActivity.USER.getUserName());
-//
-//        DatabaseReference postsRef = PostManager.getPostsRef();
-//        postsRef.push().setValue(post);
-
         Log.d("uploadtask:", "starting:");
         finish();
     }
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @NonNull
     private String getFileName() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
@@ -149,6 +149,5 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
 
         return MainActivity.USER.getUid() + "$" + date + "_" + time + "$" + zone + "$" + MainActivity.USER.getUserName() + "$";
     }
-
 
 }

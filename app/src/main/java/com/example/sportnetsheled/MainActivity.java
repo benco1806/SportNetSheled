@@ -104,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
             addPost();
         }else {
             FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, WelcomingActivity.class));
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -170,18 +172,5 @@ public class MainActivity extends AppCompatActivity {
         homeFragment.onUserDataHasSynchronized();
     }
 
-
-
-    public void onHomePostsLoaded(ArrayList<Post> posts){
-        ((HomeFragment)homeFragment).onPostsLoaded(posts);
-        if(!isSentToHome){
-            ((HomeFragment)homeFragment).refresh();
-            isSentToHome = true;
-        }
-    }
-
-    public void onExplorePostsLoaded(ArrayList<Post> posts){
-
-    }
 
 }

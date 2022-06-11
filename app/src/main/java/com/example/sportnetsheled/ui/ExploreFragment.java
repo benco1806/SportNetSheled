@@ -3,10 +3,7 @@ package com.example.sportnetsheled.ui;
 import static com.example.sportnetsheled.MainActivity.USER;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -15,10 +12,9 @@ import com.example.sportnetsheled.MainActivity;
 import com.example.sportnetsheled.Post;
 import com.example.sportnetsheled.PostManager;
 import com.example.sportnetsheled.R;
-import com.example.sportnetsheled.myAdapter;
+import com.example.sportnetsheled.MyAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
@@ -28,21 +24,18 @@ import java.util.ArrayList;
 public class ExploreFragment extends CustomFragment {
 
     private ArrayList<Post> posts;
-    private ListView lv;
-    private myAdapter adapter;
-    private Context context;
+    private MyAdapter adapter;
 
     public ExploreFragment(int layout, Context context) {
         super(layout, context);
-        this.context = context;
         posts = new ArrayList<>();
     }
 
 
     @Override
-    protected void intilaize() {
-        lv = (ListView) thisView.findViewById(R.id.list);
-        adapter = new myAdapter(context, posts, MainActivity.postManager);
+    protected void intilaze() {
+        ListView lv = (ListView) thisView.findViewById(R.id.list);
+        adapter = new MyAdapter(context, posts, MainActivity.postManager);
         lv.setAdapter(adapter);
         setPosts();
     }

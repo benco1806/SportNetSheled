@@ -28,7 +28,6 @@ public class PostManager {
     // Create a Cloud Storage reference from the app
     private FirebaseStorage storage;
     private DatabaseReference postsRef;
-
     private MainActivity main;
 
 
@@ -36,46 +35,6 @@ public class PostManager {
         this.main = main;
         storage = FirebaseStorage.getInstance("gs://sportnet-e4209.appspot.com/");
         postsRef = FirebaseDatabase.getInstance().getReference().child("posts");
-        //and all this only if the getFollowing ia not null
-        if (MainActivity.USER.getFollowing() != null) {
-            Query[] getFollowed = new Query[MainActivity.USER.getFollowing().size()];
-
-            String uri = "";
-            for (int i = 0; i < getFollowed.length; i++) {
-                String currentri = MainActivity.USER.getFollowing().get(i);
-                getFollowed[i] = postsRef.orderByChild("uiduser").equalTo(currentri);
-                uri = currentri;
-            }
-
-            final String lastUser = uri;
-
-            ArrayList<Post> posts = new ArrayList<>();
-            for (Query q : getFollowed){
-                q.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
-                            Post last = null;
-                            for(DataSnapshot shot : snapshot.getChildren()){
-                                Post post = shot.getValue(Post.class);
-                                post.setRefName(shot.getKey());
-                                posts.add(post);
-                                last = post;
-                            }
-                            if(last.getUiduser().equals(lastUser)){
-                                main.onHomePostsLoaded(posts);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        }
-
     }
 
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Post implements Serializable {
     private String path;
     private String name;
-    private String filename; //refactor to filename
+    private String filename;
     private String uiduser;
     private ArrayList<String> muscles;
     private int sets;

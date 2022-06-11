@@ -16,7 +16,6 @@ public class IDFragment extends CustomFragment implements View.OnClickListener{
     private SigningUpActivity activity;
     private EditText firstName, lastName, userName;
     private Button btNext;
-    private RadioButton rbTrainer;
 
     public IDFragment(@LayoutRes int layout, Context context) {
         super(layout, context);
@@ -24,7 +23,7 @@ public class IDFragment extends CustomFragment implements View.OnClickListener{
     }
 
     @Override
-    protected void intilaize() {
+    protected void intilaze() {
         firstName = (EditText) thisView.findViewById(R.id.firstnamesignup);
         lastName = (EditText) thisView.findViewById(R.id.lastnamesignup);
         userName = (EditText) thisView.findViewById(R.id.usernamesignup);

@@ -32,7 +32,7 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.util.List;
 
-public class myAdapter extends BaseAdapter {
+public class MyAdapter extends BaseAdapter {
 
 
     private Context context;
@@ -41,7 +41,7 @@ public class myAdapter extends BaseAdapter {
     PostManager pm;
     Animation animation;
 
-    public myAdapter(Context context, List<Post> p, PostManager pm) {
+    public MyAdapter(Context context, List<Post> p, PostManager pm) {
         this.context = context;
         this.posts = p;
         this.pm = pm;

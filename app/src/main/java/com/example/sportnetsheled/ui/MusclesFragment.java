@@ -25,7 +25,7 @@ public class MusclesFragment extends CustomFragment implements View.OnClickListe
     }
 
     @Override
-    protected void intilaize() {
+    protected void intilaze() {
         checkBoxes = new CheckBox[]{(CheckBox) thisView.findViewById(R.id.ch_shoulders), (CheckBox) thisView.findViewById(R.id.ch_chest), (CheckBox) thisView.findViewById(R.id.ch_sixpack), (CheckBox) thisView.findViewById(R.id.ch_biceps),
                 (CheckBox) thisView.findViewById(R.id.ch_forearms), (CheckBox)thisView.findViewById(R.id.ch_quads), (CheckBox) thisView.findViewById(R.id.ch_calves), (CheckBox) thisView.findViewById(R.id.ch_upperback),
                 (CheckBox) thisView.findViewById(R.id.ch_triceps), (CheckBox) thisView.findViewById(R.id.ch_lowerback), (CheckBox) thisView.findViewById(R.id.ch_gluts)};

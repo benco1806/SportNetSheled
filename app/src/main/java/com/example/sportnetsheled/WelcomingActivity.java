@@ -47,7 +47,6 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
         signIn.setOnClickListener(this);
         signUp.setOnClickListener(this);
 
-
         //getting accsses to the reference of the users in the firebase
         mUSerDatabase = FirebaseDatabase.getInstance().getReference().child("users");
     }
@@ -144,21 +143,11 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
     }
     //end sign in actions....//
 
-
     //sign up actions...//
     private void signUp(){
         Intent intent = new Intent(this, SigningUpActivity.class);
         startActivityForResult(intent, 1);
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -192,7 +181,4 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
-
-
-
 }

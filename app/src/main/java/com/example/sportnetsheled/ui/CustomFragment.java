@@ -11,10 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sportnetsheled.Post;
-
-import java.util.ArrayList;
-
 public class CustomFragment extends Fragment {
 
     protected View thisView = null;
@@ -32,17 +28,18 @@ public class CustomFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(thisView == null){
             thisView = inflater.inflate(layout, container, false);
-            intilaize();
+            intilaze();
         }
 
         return thisView;
     }
 
-    protected void intilaize(){
+    protected void intilaze(){
         //throw new Exception("you must override it!!");
     }
 
     public void onUserDataHasSynchronized(){
+        //throw new Exception("you must override it!!");
     }
 
     public void destroy(){

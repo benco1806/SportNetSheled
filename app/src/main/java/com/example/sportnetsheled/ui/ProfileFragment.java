@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class ProfileFragment extends CustomFragment{
 
     private TextView tv;
-    private GridView gridView;
     private ProfileGridAdapter adapter;
     private ArrayList<Post> myposts;
 
@@ -34,13 +33,13 @@ public class ProfileFragment extends CustomFragment{
     }
 
     @Override
-    protected void intilaize() {
+    protected void intilaze() {
         myposts = new ArrayList<>();
 
         lookforMyposts();
 
         adapter = new ProfileGridAdapter(context, myposts);
-        gridView = (GridView) thisView.findViewById(R.id.profileGrid);
+        GridView gridView = (GridView) thisView.findViewById(R.id.profileGrid);
 
         gridView.setAdapter(adapter);
 

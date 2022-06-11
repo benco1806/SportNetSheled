@@ -21,7 +21,7 @@ public class EPFragment extends CustomFragment implements View.OnClickListener{
     }
 
     @Override
-    protected void intilaize() {
+    protected void intilaze() {
         email = (EditText) thisView.findViewById(R.id.emailsignupet);
         password = (EditText) thisView.findViewById(R.id.passwordsignupet);
         btnFinish = thisView.findViewById(R.id.finishbtsignup);

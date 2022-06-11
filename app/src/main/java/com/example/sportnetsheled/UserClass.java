@@ -27,9 +27,6 @@ public class UserClass implements Serializable {
     private ArrayList<String> muscles; // see - static class MusclesClass
     private ArrayList<String> following;
 
-    public final static int REQUEST_CODE = 32145;
-
-
     public UserClass() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
