@@ -76,12 +76,13 @@ public class HomeFragment extends CustomFragment {
                         HomeFragment.this.posts = posts;
                         adapter.setPosts(HomeFragment.this.posts);
 
-                    }else{
+                    }else
                         //alerting error
-                    }
-                    if(pullToRefresh != null){
+                        errorLoadingPostsAlert();
+
+                    if(pullToRefresh != null)
                         pullToRefresh.setRefreshing(false);
-                    }
+
                 }
             });
         }else{

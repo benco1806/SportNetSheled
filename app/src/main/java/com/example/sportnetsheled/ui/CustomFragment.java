@@ -1,5 +1,6 @@
 package com.example.sportnetsheled.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -45,6 +46,17 @@ public class CustomFragment extends Fragment {
     public void destroy(){
         thisView = null;
         onDestroy();
+    }
+
+    protected void errorLoadingPostsAlert(){
+        new AlertDialog.Builder(context)
+                .setTitle("Error")
+                .setMessage("We couldn't load posts :-(\nplease try again later")
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setNeutralButton(android.R.string.ok, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 }

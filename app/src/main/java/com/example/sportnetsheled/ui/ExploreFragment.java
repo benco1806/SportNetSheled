@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.sportnetsheled.MainActivity;
 import com.example.sportnetsheled.Post;
@@ -37,10 +38,17 @@ public class ExploreFragment extends CustomFragment {
         ListView lv = (ListView) thisView.findViewById(R.id.list);
         adapter = new MyAdapter(context, posts, MainActivity.postManager);
         lv.setAdapter(adapter);
-        setPosts();
+        setPosts(null);
+        final SwipeRefreshLayout pullToRefresh = thisView.findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setPosts(pullToRefresh);
+            }
+        });
     }
 
-    private void setPosts() {
+    private void setPosts(SwipeRefreshLayout pullToRefresh) {
         DatabaseReference postsRef = PostManager.getPostsRef();
         postsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -60,7 +68,12 @@ public class ExploreFragment extends CustomFragment {
                     Log.d("@explorePage-Posts", "loading is done :-)");
                     ExploreFragment.this.posts = posts;
                     adapter.setPosts(ExploreFragment.this.posts);
-                }
+                }else
+                    errorLoadingPostsAlert();
+
+                if (pullToRefresh != null)
+                    pullToRefresh.setRefreshing(false);
+
             }
         });
     }
