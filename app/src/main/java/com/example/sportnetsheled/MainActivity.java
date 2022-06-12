@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public static PostManager postManager;
 
     private boolean issavedInstanceStatenull = false;
-    BottomNavigationView bottomNav;
-    MyReceiver receiver;
+    private BottomNavigationView bottomNav;
+    private MyReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +103,23 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.itAddPost){
             addPost();
         }else {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(this, WelcomingActivity.class));
-            finish();
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Attention")
+                    .setMessage("you can visit your page by clicking on the profile page")
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            FirebaseAuth.getInstance().signOut();
+                            startActivity(new Intent(MainActivity.this, WelcomingActivity.class));
+                            finish();
+                        }
+                    })
+                    .setPositiveButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -172,5 +186,12 @@ public class MainActivity extends AppCompatActivity {
         homeFragment.onUserDataHasSynchronized();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        Log.d("onDestroy::MainActivity", "destroyed");
+        super.onDestroy();
+        USER = null;
+        USER_REFERENCE = null;
+        postManager = null;
+    }
 }

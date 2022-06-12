@@ -2,6 +2,7 @@ package com.example.sportnetsheled.ui;
 
 import static com.example.sportnetsheled.MainActivity.USER;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 import android.widget.ListView;
@@ -56,7 +57,7 @@ public class HomeFragment extends CustomFragment {
     }
 
     private void setPosts(SwipeRefreshLayout pullToRefresh) {
-        if (USER.getFollowing() != null) {
+        if (USER.getFollowing() != null && !USER.getFollowing().isEmpty()) {
             DatabaseReference postsRef = PostManager.getPostsRef();
             postsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
@@ -86,7 +87,17 @@ public class HomeFragment extends CustomFragment {
                 }
             });
         }else{
+            new AlertDialog.Builder(context)
+                    .setTitle("Message")
+                    .setMessage("please fins some users to follow after them pn the explore page \tU+1F600")
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setNeutralButton(android.R.string.ok, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
             //alerting user: find some users to follow!
+            HomeFragment.this.posts = new ArrayList<>();
+            adapter.setPosts(HomeFragment.this.posts);
             if(pullToRefresh != null){
                 pullToRefresh.setRefreshing(false);
             }

@@ -2,7 +2,9 @@ package com.example.sportnetsheled;
 
 import static com.example.sportnetsheled.MainActivity.USER;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -79,7 +81,7 @@ public class MyAdapter extends BaseAdapter {
 
         if(view==null){
             layoutInflater = LayoutInflater.from(this.context);
-            view=layoutInflater.inflate(R.layout.post_layout,null);
+            view=layoutInflater.inflate(R.layout.post_layout,viewGroup,false);
         }
         TextView tv = view.findViewById(R.id.tvPost), tvUser = view.findViewById(R.id.tvuser);
         VideoView vv = view.findViewById(R.id.videoView);
@@ -90,20 +92,32 @@ public class MyAdapter extends BaseAdapter {
         tvUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(!post.getUiduser().equals(USER.getUid())){
+                    context.startActivity(new Intent((MainActivity)context, ProfileViewerActivity.class));
+                }else{
+                    new AlertDialog.Builder(context)
+                            .setTitle("Attention")
+                            .setMessage("you can visit your page by clicking on the profile page")
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setNeutralButton(android.R.string.ok, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
             }
         });
 
         if(USER.getUid().equals(post.getUiduser())){
             tvFollow.setVisibility(View.GONE);
         }else{
-            if(USER.getFollowing() == null){
+
+            tvFollow.setVisibility(View.VISIBLE);
+
+            if(USER.getFollowing() == null && !USER.getFollowing().isEmpty()){
                 USER.setFollowing();
                 tvFollow.setText("follow");
                 tvFollow.setTextColor(Color.BLUE);
             }else{
-
-
 
                 if(USER.getFollowing().contains(post.getUiduser())){
                     tvFollow.setText("following");
@@ -161,6 +175,7 @@ public class MyAdapter extends BaseAdapter {
         tv.setText("Workout name: " + post.getName() + " | sets: " + post.getSets() + " | reps: " + post.getReps());
         tvUser.setText("@" + post.getUserName());
 
+        vv.setVideoURI(null);
         try {
             pm.getUri(post, vv);
         } catch (IOException e) {
