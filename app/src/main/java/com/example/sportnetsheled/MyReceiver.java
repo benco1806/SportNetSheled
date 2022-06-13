@@ -20,12 +20,11 @@ public class MyReceiver extends BroadcastReceiver {
         int level = intent.getIntExtra(BATTERY_LEVEL, 0);
         myBatteryManager = (BatteryManager) context.getSystemService(Context.BATTERY_SERVICE);
 
-       boolean isBatteryCharging =  myBatteryManager.isCharging();
 
-        if(level < 15 && !isBatteryCharging){
+        if(level < 15){
             AlertDialog.Builder builder = new AlertDialog.Builder(context)
                     .setTitle("Attention")
-                    .setMessage("your battery is below 15% please charge it! the application can not run at low battery!")
+                    .setMessage("your battery is below 15% please charge it to over 15%! the application can not run at low battery!")
                     // Specifying a listener allows you to take an action before dismissing the dialog.
                     // The dialog is automatically dismissed when a dialog button is clicked.
                     .setNeutralButton(android.R.string.ok, null)

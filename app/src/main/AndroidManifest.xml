@@ -16,15 +16,17 @@
         <receiver
             android:name=".MyReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+            </intent-filter>
+        </receiver>
 
         <service
             android:name=".UploadService"
             android:enabled="true"
             android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-            </intent-filter>
+
         </service>
 
         <activity

@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,9 @@ public class PostManager {
     }
 
 
-    public void getUri(Post p, VideoView vv) throws IOException {
+    public void getUri(Post p, VideoView vv, ProgressBar pb) throws IOException {
+        vv.setVisibility(View.INVISIBLE);
+        pb.setVisibility(View.VISIBLE);
 
         File localFile = new File(main.getCacheDir(),p.getFilename() + ".mp4");
 
@@ -51,7 +54,7 @@ public class PostManager {
             reference.getFile(tempFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    setUriVideo(tempFile, vv);
+                    setUriVideo(tempFile, vv, pb);
                     Log.d("TaskDownLoad", "we did it!:: " + tempFile.getPath());
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -61,7 +64,7 @@ public class PostManager {
                 }
             });
         }else{
-            setUriVideo(localFile, vv);
+            setUriVideo(localFile, vv, pb);
         }
     }
 
@@ -69,7 +72,9 @@ public class PostManager {
 
 
 
-    private void setUriVideo(File file, VideoView vv){
+    private void setUriVideo(File file, VideoView vv, ProgressBar pb){
+        pb.setVisibility(View.GONE);
+        vv.setVisibility(View.VISIBLE);
         Uri uri = Uri.fromFile(file);
         vv.setVideoURI(uri);
         vv.seekTo(1);
@@ -90,6 +95,7 @@ public class PostManager {
                 }
             }
         });
+
     }
 
     public static DatabaseReference getPostsRef(){

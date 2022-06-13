@@ -52,7 +52,7 @@ public class HomeFragment extends CustomFragment {
 
     @Override
     public void onResume() {
-        adapter.notifyDataSetChanged();
+        setPosts(null);
         super.onResume();
     }
 

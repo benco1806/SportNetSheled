@@ -17,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -88,6 +89,7 @@ public class MyAdapter extends BaseAdapter {
         ImageButton btLike = view.findViewById(R.id.btlike);
         TextView tvLikes = view.findViewById(R.id.tvLikes);
         TextView tvFollow = view.findViewById(R.id.tvFollow);
+        ProgressBar pb = (ProgressBar) view.findViewById(R.id.progressBar);
 
         tvUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +118,7 @@ public class MyAdapter extends BaseAdapter {
 
             tvFollow.setVisibility(View.VISIBLE);
 
-            if(USER.getFollowing() == null && !USER.getFollowing().isEmpty()){
+            if(USER.getFollowing() == null || !USER.getFollowing().isEmpty()){
                 USER.setFollowing();
                 tvFollow.setText("follow");
                 tvFollow.setTextColor(Color.BLUE);
@@ -178,9 +180,9 @@ public class MyAdapter extends BaseAdapter {
         tv.setText("Workout name: " + post.getName() + " | sets: " + post.getSets() + " | reps: " + post.getReps());
         tvUser.setText("@" + post.getUserName());
 
-        vv.setVideoURI(null);
+
         try {
-            pm.getUri(post, vv);
+            pm.getUri(post, vv, pb);
         } catch (IOException e) {
             e.printStackTrace();
         }

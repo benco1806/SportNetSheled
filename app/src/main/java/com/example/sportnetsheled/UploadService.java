@@ -1,6 +1,10 @@
 package com.example.sportnetsheled;
 
+import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
@@ -8,6 +12,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +26,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class UploadService extends Service {
+
+    NotificationManagerCompat notificationManager;
+    NotificationCompat.Builder builder;
+
     public UploadService() {
     }
 
@@ -34,6 +44,7 @@ public class UploadService extends Service {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
+
         Uri uri = Uri.parse(intent.getStringExtra("uri"));
         String name = intent.getStringExtra("name");
         int sets = intent.getIntExtra("sets", 0);
@@ -45,7 +56,9 @@ public class UploadService extends Service {
 
         ArrayList<String> muscles = new ArrayList<>(Arrays.asList(tmpMuscles));
 
-        videoRef.putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+        Task<UploadTask.TaskSnapshot> task = videoRef.putFile(uri);
+
+        task.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
@@ -60,6 +73,7 @@ public class UploadService extends Service {
                     Log.e("uploadtask:", task.getException().toString());
                     Toast.makeText(getApplicationContext(), "we couldn't upload the post :-((", Toast.LENGTH_SHORT).show();
                 }
+                showAlert(intent);
             }
         });
 
@@ -69,5 +83,9 @@ public class UploadService extends Service {
     private void addPostToFirebase(Post post) {
         DatabaseReference postsRef = PostManager.getPostsRef();
         postsRef.push().setValue(post);
+    }
+
+    private void showAlert(Intent intent){
+
     }
 }

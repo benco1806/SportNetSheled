@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ProgressBar;
 import android.widget.VideoView;
 
 import java.io.IOException;
@@ -44,9 +45,11 @@ public class ProfileGridAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.profilepage_post_layout, null);
         }
         VideoView vv = view.findViewById(R.id.videoView);
+        ProgressBar pb = (ProgressBar) view.findViewById(R.id.progressBar);
+
 
         try {
-            MainActivity.postManager.getUri(posts.get(i), vv);
+            MainActivity.postManager.getUri(posts.get(i), vv, pb);
         } catch (IOException e) {
             e.printStackTrace();
         }
