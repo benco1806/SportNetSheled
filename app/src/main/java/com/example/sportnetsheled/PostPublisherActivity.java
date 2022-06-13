@@ -6,7 +6,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,18 +16,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
-
-import com.google.firebase.database.DatabaseReference;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PostPublisherActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,12 +31,13 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
     private Button button;
     private Uri uri;
     private VideoView videoView;
+    private MyReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_publisher);
-
+        receiver = new MyReceiver();
 
         ib = (ImageButton) findViewById(R.id.uploadVideo);
         button = (Button) findViewById(R.id.btnextpublish);
@@ -75,7 +71,7 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
             startActivityForResult(intent, 0);
         }else if(view == button && uri != null){
             //uploadPost(uri, etTextApp.getText().toString());
-            startActivityForResult(new Intent(this, PostDataMuscles.class), 1);
+            startActivityForResult(new Intent(this, PostDataMusclesActivity.class), 1);
         }
     }
 
@@ -94,13 +90,13 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
         if (requestCode == 1){
             if (resultCode == RESULT_OK){
                 //taking out the name:
-                String workout_name = data.getStringExtra(PostDataMuscles.WORKOUTNAMENAMETAG);
+                String workout_name = data.getStringExtra(PostDataMusclesActivity.WORKOUTNAMENAMETAG);
                 //taking out the sets value:
-                int sets = data.getIntExtra(PostDataMuscles.SETSNAMETAG, 1);
+                int sets = data.getIntExtra(PostDataMusclesActivity.SETSNAMETAG, 1);
                 //taking out the reps value:
-                int reps = data.getIntExtra(PostDataMuscles.REPSNAMETAG, 1);
+                int reps = data.getIntExtra(PostDataMusclesActivity.REPSNAMETAG, 1);
                 //taking out the muscles data... :
-                String[] muscles = data.getStringArrayExtra(PostDataMuscles.MUSCLESNAMETAG);
+                String[] muscles = data.getStringArrayExtra(PostDataMusclesActivity.MUSCLESNAMETAG);
 
                 uploadPost(uri, workout_name, sets, reps, muscles);
             }else{
@@ -148,6 +144,17 @@ public class PostPublisherActivity extends AppCompatActivity implements View.OnC
         String time = dlf.format(localTime);
 
         return MainActivity.USER.getUid() + "$" + date + "_" + time + "$" + zone + "$" + MainActivity.USER.getUserName() + "$";
+    }
+
+    protected void onStart() {
+        registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(receiver);
+        super.onStop();
     }
 
 }

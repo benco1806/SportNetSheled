@@ -77,18 +77,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    protected void onStart() {
-        registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        super.onStart();
-    }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.upp_menu, menu);
         return true;
+    }
+
+    protected void onStart() {
+        registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        super.onStart();
     }
 
     @Override

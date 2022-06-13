@@ -93,7 +93,10 @@ public class MyAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 if(!post.getUiduser().equals(USER.getUid())){
-                    context.startActivity(new Intent((MainActivity)context, ProfileViewerActivity.class));
+                    Intent intent = new Intent((MainActivity)context, ProfileViewerActivity.class);
+                    intent.putExtra("uid", post.getUiduser());
+                    intent.putExtra("username", post.getUserName());
+                    context.startActivity(intent);
                 }else{
                     new AlertDialog.Builder(context)
                             .setTitle("Attention")

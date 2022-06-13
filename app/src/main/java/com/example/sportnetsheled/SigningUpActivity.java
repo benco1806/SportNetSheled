@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -29,10 +30,12 @@ public class SigningUpActivity extends AppCompatActivity {
     private EPFragment epFragment;
     private MusclesFragment musclesFragment;
     private final String ID_SIGNUP_DATARETURNED = "id.signup.datareturned", EP_SIGNUP_DATARETURNED = "ep.signup.datareturned";
+    private MyReceiver receiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signing_up);
+        receiver = new MyReceiver();
 
         idFragment = new IDFragment(R.layout.id_signup_layout, this);
 
@@ -120,5 +123,16 @@ public class SigningUpActivity extends AppCompatActivity {
         intent.putExtra("email", email);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    protected void onStart() {
+        registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(receiver);
+        super.onStop();
     }
 }

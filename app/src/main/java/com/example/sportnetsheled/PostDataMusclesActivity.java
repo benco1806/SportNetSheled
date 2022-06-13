@@ -3,6 +3,7 @@ package com.example.sportnetsheled;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,11 +13,12 @@ import android.widget.NumberPicker;
 
 import java.util.ArrayList;
 
-public class PostDataMuscles extends AppCompatActivity implements View.OnClickListener {
+public class PostDataMusclesActivity extends AppCompatActivity implements View.OnClickListener {
     private NumberPicker nbSets, nbReps;
     private CheckBox[] checkBoxes;
     private Button publish;
     private Intent intent;
+    private MyReceiver receiver;
 
     public static final String MUSCLESNAMETAG = "MUSCLESNAMETAG", SETSNAMETAG = "SETSNAMETAG", REPSNAMETAG = "REPSNAMETAG",
     WORKOUTNAMENAMETAG = "WORKOUTNAMENAMETAG";
@@ -25,6 +27,7 @@ public class PostDataMuscles extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_data_muscles);
+        receiver = new MyReceiver();
         intent = getIntent();
 
         nbSets = (NumberPicker) findViewById(R.id.nbsets);
@@ -103,5 +106,16 @@ public class PostDataMuscles extends AppCompatActivity implements View.OnClickLi
         intent.putExtra(WORKOUTNAMENAMETAG, workoutname);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    protected void onStart() {
+        registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(receiver);
+        super.onStop();
     }
 }

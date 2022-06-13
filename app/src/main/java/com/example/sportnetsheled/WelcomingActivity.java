@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -37,12 +38,15 @@ import java.util.Collections;
 public class WelcomingActivity extends AppCompatActivity implements View.OnClickListener {
 
     private DatabaseReference mUSerDatabase;
+    private MyReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcoming);
-
+        receiver = new MyReceiver();
         Button signIn = (Button) findViewById(R.id.signinbutton), signUp = (Button) findViewById(R.id.signupbuttonb);
         signIn.setOnClickListener(this);
         signUp.setOnClickListener(this);
@@ -180,5 +184,16 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
     private void getBackIntoMainActivity(){
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    protected void onStart() {
+        registerReceiver(receiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(receiver);
+        super.onStop();
     }
 }
