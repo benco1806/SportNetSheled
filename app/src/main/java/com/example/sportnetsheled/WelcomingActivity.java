@@ -3,6 +3,7 @@ package com.example.sportnetsheled;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -109,8 +110,17 @@ public class WelcomingActivity extends AppCompatActivity implements View.OnClick
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etEmail.getText() != null && etPassword.getText() != null){
+                if(!etEmail.getText().toString().isEmpty() && !etPassword.getText().toString().isEmpty()){
                     signingIn(etEmail.getText().toString(), etPassword.getText().toString());
+                }else{
+                    new AlertDialog.Builder(WelcomingActivity.this)
+                            .setTitle("Attention")
+                            .setMessage("please fill all the text arrays!")
+                            // Specifying a listener allows you to take an action before dismissing the dialog.
+                            // The dialog is automatically dismissed when a dialog button is clicked.
+                            .setNeutralButton(android.R.string.ok, null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
                 }
             }
         });

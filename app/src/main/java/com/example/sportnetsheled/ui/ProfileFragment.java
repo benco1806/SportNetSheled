@@ -1,6 +1,8 @@
 package com.example.sportnetsheled.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
@@ -20,10 +22,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
-public class ProfileFragment extends CustomFragment implements AdapterView.OnItemLongClickListener {
+public class ProfileFragment extends CustomFragment{
 
     private TextView tv;
     private ProfileGridAdapter adapter;
@@ -36,13 +39,8 @@ public class ProfileFragment extends CustomFragment implements AdapterView.OnIte
     @Override
     protected void intilaze() {
         myposts = new ArrayList<>();
-
-        lookforMyposts();
-
-        adapter = new ProfileGridAdapter(context, myposts);
+        adapter = new ProfileGridAdapter(context, myposts, this);
         GridView gridView = (GridView) thisView.findViewById(R.id.profileGrid);
-        gridView.setOnItemLongClickListener(this);
-
         gridView.setAdapter(adapter);
 
         tv = (TextView)thisView.findViewById(R.id.textView);
@@ -91,10 +89,43 @@ public class ProfileFragment extends CustomFragment implements AdapterView.OnIte
     public void onResume() {
         super.onResume();
         lookforMyposts();
+
     }
 
-    @Override
-    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-        return false;
+
+
+    public void deletePost(Post post) {
+
+        new AlertDialog.Builder(context)
+                .setTitle("Attention")
+                .setMessage("Are you sure you want do delete this post?")
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(android.R.string.no, null)
+                .setNegativeButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String ref = post.getRefName(), path = post.getPath();
+
+                        //deleting post from database:
+                        PostManager.getPostsRef().child(ref).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                lookforMyposts();
+                            }
+                        });
+
+                        //deleting video from storage:
+                        FirebaseStorage.getInstance("gs://sportnet-e4209.appspot.com/").getReference(path).delete();
+                    }
+                })
+                .show();
+
+
+
+
     }
+
+
 }

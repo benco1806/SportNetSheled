@@ -1,5 +1,6 @@
 package com.example.sportnetsheled.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -30,8 +31,17 @@ public class EPFragment extends CustomFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        if(email.getText() != null && password.getText() != null){
+        if(!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
             activity.onEPFragmentDone(email.getText().toString(), password.getText().toString());
+        }else{
+            new AlertDialog.Builder(context)
+                    .setTitle("Attention")
+                    .setMessage("please fill all the text arrays!")
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setNeutralButton(android.R.string.ok, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
     }
 }

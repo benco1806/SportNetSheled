@@ -46,7 +46,7 @@ public class ProfileViewerActivity extends AppCompatActivity {
         tv = (TextView) findViewById(R.id.textView);
         tv.setText("@"+userName);
 
-        adapter = new ProfileGridAdapter(this, posts);
+        adapter = new ProfileGridAdapter(this, posts, null);
         GridView gridView = (GridView)findViewById(R.id.profileGrid);
         gridView.setAdapter(adapter);
 

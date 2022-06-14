@@ -2,6 +2,7 @@ package com.example.sportnetsheled;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -91,6 +92,20 @@ public class PostDataMusclesActivity extends AppCompatActivity implements View.O
                 }
             }
         }//end of the for;
+
+        if (tmp.isEmpty()){
+            new AlertDialog.Builder(this)
+                    .setTitle("Attention")
+                    .setMessage("please pick at least one muscle!")
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setNeutralButton(android.R.string.ok, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
+
+
         String[] muscles = new String[tmp.size()];
         for (int i = 0; i < muscles.length; i++)
             muscles[i] = tmp.get(i);
@@ -103,6 +118,19 @@ public class PostDataMusclesActivity extends AppCompatActivity implements View.O
         intent.putExtra(REPSNAMETAG, reps);
 
         String workoutname = ((EditText)(findViewById(R.id.etworkoutname))).getText().toString();
+
+        if(workoutname.isEmpty()){
+            new AlertDialog.Builder(this)
+                    .setTitle("Attention")
+                    .setMessage("please insert a name for the workout!")
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setNeutralButton(android.R.string.ok, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            return;
+        }
+
         intent.putExtra(WORKOUTNAMENAMETAG, workoutname);
         setResult(RESULT_OK, intent);
         finish();

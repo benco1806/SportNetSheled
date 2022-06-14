@@ -62,7 +62,7 @@ public class UploadService extends Service {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getApplicationContext(), "נהדר!!!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "post has been published :-)", Toast.LENGTH_LONG).show();
                     Post post = new Post(videoRef.getPath(), name, filename, MainActivity.USER.getUid(), muscles, sets, reps, null, MainActivity.USER.getUserName());
                     addPostToFirebase(post);
                     Log.d("uploadtask:", "done:");
@@ -71,9 +71,9 @@ public class UploadService extends Service {
                     //System.exit(-1);
                     Log.d("uploadtask:", "blya");
                     Log.e("uploadtask:", task.getException().toString());
-                    Toast.makeText(getApplicationContext(), "we couldn't upload the post :-((", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "we couldn't upload the post :-(", Toast.LENGTH_LONG).show();
                 }
-                showAlert(intent);
+
             }
         });
 
@@ -85,7 +85,4 @@ public class UploadService extends Service {
         postsRef.push().setValue(post);
     }
 
-    private void showAlert(Intent intent){
-
-    }
 }

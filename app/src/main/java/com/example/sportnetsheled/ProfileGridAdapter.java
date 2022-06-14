@@ -5,8 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.VideoView;
+
+import com.example.sportnetsheled.ui.ProfileFragment;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,10 +19,12 @@ public class ProfileGridAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private Context context;
     private ArrayList<Post> posts;
+    private ProfileFragment pf;
 
-    public ProfileGridAdapter(Context context, ArrayList<Post> posts) {
+    public ProfileGridAdapter(Context context, ArrayList<Post> posts, ProfileFragment pf) {
         this.context = context;
         this.posts = posts;
+        this.pf = pf;
     }
 
     @Override
@@ -44,6 +49,22 @@ public class ProfileGridAdapter extends BaseAdapter {
             layoutInflater = LayoutInflater.from(this.context);
             view = layoutInflater.inflate(R.layout.profilepage_post_layout, null);
         }
+
+        ImageButton del = (ImageButton) view.findViewById(R.id.btDel);
+
+        if(pf != null){
+            del.setVisibility(View.VISIBLE);
+            del.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    pf.deletePost(posts.get(i));
+                }
+            });
+        }else{
+            del.setVisibility(View.GONE);
+        }
+
+
         VideoView vv = view.findViewById(R.id.videoView);
         ProgressBar pb = (ProgressBar) view.findViewById(R.id.progressBar);
 
