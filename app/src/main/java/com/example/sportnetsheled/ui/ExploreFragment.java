@@ -81,7 +81,7 @@ public class ExploreFragment extends CustomFragment {
     @Override
     public void onResume() {
         super.onResume();
-        setPosts(null);
+        adapter.notifyDataSetChanged();
     }
 }
 

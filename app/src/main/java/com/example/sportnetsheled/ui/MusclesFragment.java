@@ -1,5 +1,6 @@
 package com.example.sportnetsheled.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
@@ -76,6 +77,18 @@ public class MusclesFragment extends CustomFragment implements View.OnClickListe
                 }
             }
         }
-        activity.onMusclesFragmentDone(tmp);
+
+        if(!tmp.isEmpty())
+           activity.onMusclesFragmentDone(tmp);
+        else{
+            new AlertDialog.Builder(context)
+                    .setTitle("Attention")
+                    .setMessage("please pick at least one muscle!")
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setNeutralButton(android.R.string.ok, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
     }
 }

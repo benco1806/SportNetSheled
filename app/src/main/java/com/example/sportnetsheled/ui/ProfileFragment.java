@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -22,7 +23,7 @@ import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 
-public class ProfileFragment extends CustomFragment{
+public class ProfileFragment extends CustomFragment implements AdapterView.OnItemLongClickListener {
 
     private TextView tv;
     private ProfileGridAdapter adapter;
@@ -40,6 +41,7 @@ public class ProfileFragment extends CustomFragment{
 
         adapter = new ProfileGridAdapter(context, myposts);
         GridView gridView = (GridView) thisView.findViewById(R.id.profileGrid);
+        gridView.setOnItemLongClickListener(this);
 
         gridView.setAdapter(adapter);
 
@@ -88,6 +90,11 @@ public class ProfileFragment extends CustomFragment{
     @Override
     public void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        lookforMyposts();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        return false;
     }
 }

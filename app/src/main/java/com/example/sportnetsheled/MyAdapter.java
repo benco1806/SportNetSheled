@@ -118,7 +118,7 @@ public class MyAdapter extends BaseAdapter {
 
             tvFollow.setVisibility(View.VISIBLE);
 
-            if(USER.getFollowing() == null || !USER.getFollowing().isEmpty()){
+            if(USER.getFollowing() == null || USER.getFollowing().isEmpty()){
                 USER.setFollowing();
                 tvFollow.setText("follow");
                 tvFollow.setTextColor(Color.BLUE);

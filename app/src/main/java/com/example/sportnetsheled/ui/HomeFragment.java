@@ -52,12 +52,12 @@ public class HomeFragment extends CustomFragment {
 
     @Override
     public void onResume() {
-        setPosts(null);
+        adapter.notifyDataSetChanged();
         super.onResume();
     }
 
     private void setPosts(SwipeRefreshLayout pullToRefresh) {
-        if (USER.getFollowing() != null && !USER.getFollowing().isEmpty()) {
+        if (USER.getFollowing() != null) {
             DatabaseReference postsRef = PostManager.getPostsRef();
             postsRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
@@ -84,23 +84,32 @@ public class HomeFragment extends CustomFragment {
                     if(pullToRefresh != null)
                         pullToRefresh.setRefreshing(false);
 
+                    if(posts.isEmpty())
+                        alerting();
+
                 }
             });
         }else{
-            new AlertDialog.Builder(context)
-                    .setTitle("Message")
-                    .setMessage("please fins some users to follow after them pn the explore page \tU+1F600")
-                    // Specifying a listener allows you to take an action before dismissing the dialog.
-                    // The dialog is automatically dismissed when a dialog button is clicked.
-                    .setNeutralButton(android.R.string.ok, null)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
-            //alerting user: find some users to follow!
-            HomeFragment.this.posts = new ArrayList<>();
-            adapter.setPosts(HomeFragment.this.posts);
             if(pullToRefresh != null){
                 pullToRefresh.setRefreshing(false);
             }
+            alerting();
         }
+
+    }
+
+    private void alerting(){
+        new AlertDialog.Builder(context)
+                .setTitle("Message")
+                .setMessage("please find some users to follow after them on the explore page :-)")
+                // Specifying a listener allows you to take an action before dismissing the dialog.
+                // The dialog is automatically dismissed when a dialog button is clicked.
+                .setNeutralButton(android.R.string.ok, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+        //alerting user: find some users to follow!
+        HomeFragment.this.posts = new ArrayList<>();
+        adapter.setPosts(HomeFragment.this.posts);
+
     }
 }
