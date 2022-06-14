@@ -38,10 +38,7 @@ public class ProfileFragment extends CustomFragment{
 
     @Override
     protected void intilaze() {
-        myposts = new ArrayList<>();
-        adapter = new ProfileGridAdapter(context, myposts, this);
-        GridView gridView = (GridView) thisView.findViewById(R.id.profileGrid);
-        gridView.setAdapter(adapter);
+
 
         tv = (TextView)thisView.findViewById(R.id.textView);
 
@@ -88,6 +85,10 @@ public class ProfileFragment extends CustomFragment{
     @Override
     public void onResume() {
         super.onResume();
+        myposts = new ArrayList<>();
+        adapter = new ProfileGridAdapter(context, myposts, this);
+        GridView gridView = (GridView) thisView.findViewById(R.id.profileGrid);
+        gridView.setAdapter(adapter);
         lookforMyposts();
 
     }

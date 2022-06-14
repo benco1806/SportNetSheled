@@ -43,6 +43,8 @@ public class PostManager {
         vv.setVisibility(View.INVISIBLE);
         pb.setVisibility(View.VISIBLE);
 
+        vv.setVideoURI(null);
+
         File localFile = new File(main.getCacheDir(),p.getFilename() + ".mp4");
 
 

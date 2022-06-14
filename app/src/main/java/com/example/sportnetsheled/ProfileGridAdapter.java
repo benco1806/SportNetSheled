@@ -47,7 +47,7 @@ public class ProfileGridAdapter extends BaseAdapter {
 
         if(view == null){
             layoutInflater = LayoutInflater.from(this.context);
-            view = layoutInflater.inflate(R.layout.profilepage_post_layout, null);
+            view = layoutInflater.inflate(R.layout.profilepage_post_layout, viewGroup, false);
         }
 
         ImageButton del = (ImageButton) view.findViewById(R.id.btDel);
@@ -74,6 +74,8 @@ public class ProfileGridAdapter extends BaseAdapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
 
 
         return view;
